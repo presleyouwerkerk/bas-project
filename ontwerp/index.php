@@ -2,8 +2,6 @@
 
 require 'Connection.php';
 
-use Bas_project\ontwerp\Connection;
-
 $connection = new Connection();
 
 $pdo = $connection->getPdo();
