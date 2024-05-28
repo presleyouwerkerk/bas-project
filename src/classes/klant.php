@@ -11,86 +11,86 @@ class Klant
 	public int $klantPostcode;
 	public string $klantWoonplaats;
 
-	// public function crudKlant(): void
-	// {
-	// 	$lijst = $this->getKlanten();
+	public function crudKlant(): void
+	{
+		$lijst = $this->getKlanten();
 
-	// 	$this->showTable($lijst);
-	// }
+		$this->showTable($lijst);
+	}
 
-	// public function getKlanten(): array
-	// {
-	// 	$stmt = $this->conn->getPdo()->query("SELECT * FROM Klant");
+	public function getKlanten(): array
+	{
+		$stmt = $this->conn->getPdo()->query("SELECT * FROM Klant");
 
-	// 	return $stmt->fetchAll();
-	// }
+		return $stmt->fetchAll();
+	}
 
-	// public function getKlant(int $klantId): array
-	// {
+	public function getKlant(int $klantId): array
+	{
 
-	// 	// Doe een fetch op $klantId
+		// Doe een fetch op $klantId
 
-	// 	$lijst = ['klantId' => 1, 'klantEmail' => 'test1@example.com', 'klantNaam' => 'Test 1', 'klantWoonplaats' => 'City 1'];
+		$lijst = ['klantId' => 1, 'klantEmail' => 'test1@example.com', 'klantNaam' => 'Test 1', 'klantWoonplaats' => 'City 1'];
 
-	// 	return $lijst;
-	// }
+		return $lijst;
+	}
 
-	// public function dropDownKlant($row_selected = -1)
-	// {
-	// 	$lijst = $this->getKlanten();
+	public function dropDownKlant($row_selected = -1)
+	{
+		$lijst = $this->getKlanten();
 
-	// 	echo "<label for='Klant'>Choose a klant:</label>";
-	// 	echo "<select name='klantId'>";
+		echo "<label for='Klant'>Choose a klant:</label>";
+		echo "<select name='klantId'>";
 
-	// 	foreach ($lijst as $row) {
-	// 		if ($row_selected == $row["klantId"]) {
-	// 			echo "<option value='$row[klantId]' selected='selected'> $row[klantnaam] $row[klantemail]</option>\n";
-	// 		} else {
-	// 			echo "<option value='$row[klantId]'> $row[klantnaam] $row[klantemail]</option>\n";
-	// 		}
-	// 	}
-	// 	echo "</select>";
-	// }
+		foreach ($lijst as $row) {
+			if ($row_selected == $row["klantId"]) {
+				echo "<option value='$row[klantId]' selected='selected'> $row[klantnaam] $row[klantemail]</option>\n";
+			} else {
+				echo "<option value='$row[klantId]'> $row[klantnaam] $row[klantemail]</option>\n";
+			}
+		}
+		echo "</select>";
+	}
 
-	// public function showTable($lijst): void
-	// {
-	// 	$txt = "<table>";
+	public function showTable($lijst): void
+	{
+		$txt = "<table>";
 
-	// 	$txt .= getTableHeader($lijst[0]);
+		$txt .= getTableHeader($lijst[0]);
 
-	// 	foreach ($lijst as $row) {
-	// 		$txt .= "<tr>";
-	// 		$txt .=  "<td>" . $row["klantId"] . "</td>";
-	// 		$txt .=  "<td>" . $row["klantNaam"] . "</td>";
-	// 		$txt .=  "<td>" . $row["klantEmail"] . "</td>";
-	// 		$txt .=  "<td>" . $row["klantWoonplaats"] . "</td>";
+		foreach ($lijst as $row) {
+			$txt .= "<tr>";
+			$txt .=  "<td>" . $row["klantId"] . "</td>";
+			$txt .=  "<td>" . $row["klantNaam"] . "</td>";
+			$txt .=  "<td>" . $row["klantEmail"] . "</td>";
+			$txt .=  "<td>" . $row["klantWoonplaats"] . "</td>";
 
-	// 		$txt .=  "<td>";
-	// 		$txt .= " 
-    //         <form method='post' action='update.php?klantId=$row[klantId]' >       
-    //             <button name='update'>Wzg</button>	 
-    //         </form> </td>";
+			$txt .=  "<td>";
+			$txt .= " 
+            <form method='post' action='update.php?klantId=$row[klantId]' >       
+                <button name='update'>Wzg</button>	 
+            </form> </td>";
 
-	// 		$txt .=  "<td>";
-	// 		$txt .= " 
-    //         <form method='post' action='delete.php?klantId=$row[klantId]' >       
-    //             <button name='verwijderen'>Verwijderen</button>	 
-    //         </form> </td>";
-	// 		$txt .= "</tr>";
-	// 	}
-	// 	$txt .= "</table>";
-	// 	echo $txt;
-	// }
+			$txt .=  "<td>";
+			$txt .= " 
+            <form method='post' action='delete.php?klantId=$row[klantId]' >       
+                <button name='verwijderen'>Verwijderen</button>	 
+            </form> </td>";
+			$txt .= "</tr>";
+		}
+		$txt .= "</table>";
+		echo $txt;
+	}
 
-	// public function deleteKlant(int $klantId): bool
-	// {
-	// 	return true;
-	// }
+	public function deleteKlant(int $klantId): bool
+	{
+		return true;
+	}
 
-	// public function updateKlant($row): bool
-	// {
-	// 	return true;
-	// }
+	public function updateKlant($row): bool
+	{
+		return true;
+	}
 
 	public function insertKlant(): bool
 	{
