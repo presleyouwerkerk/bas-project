@@ -5,6 +5,11 @@
             "BasProject\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "BasProject\\Tests\\": "tests/"
+        }
+    },
     "authors": [
         {
             "name": "Presley"
