@@ -65,7 +65,7 @@ if (!empty($errors)) {
         <br><br>
         <input type='submit' name='insert' value='Submit'>
         <br><br>
-        <a href='../../public/index.html'>Terug</a>
+        <a href='read.php'>Terug</a>
     </form>
 </body>
 
