@@ -1,7 +1,7 @@
 <?php
 // insert.php
 
-require __DIR__ . '/../../vendor/autoload.php';
+require '../../vendor/autoload.php';
 
 use BasProject\classes\Klant;
 
@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 		if (empty($errors)) {
 			if ($klant->insertKlant()) {
-				header("Location: read.php");
+				header("Location: ../../public/index.html");
 				exit();
 			} else {
 				$errors[] = "Insertion failed";
@@ -42,26 +42,25 @@ if (!empty($errors)) {
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Crud</title>
-	<link rel="stylesheet" href="../../public/css/style.css">
 </head>
 
 <body>
-	<h1>New customer</h1>
+	<h1>Nieuwe klant</h1>
 	<form method="post">
-		<input type="text" name="klantnaam" placeholder="Klantnaam" />
+		<input type="text" name="klantnaam" placeholder="Naam" required />
 		<br><br>
-		<input type="text" name="klantemail" placeholder="klantemail" />
+		<input type="text" name="klantemail" placeholder="Email" required />
 		<br><br>
-		<input type="text" name="klantadres" placeholder="klantadres" />
+		<input type="text" name="klantadres" placeholder="Adres" required />
 		<br><br>
-		<input type="text" name="klantpostcode" placeholder="klantpostcode" />
+		<input type="text" name="klantpostcode" placeholder="Postcode" required />
 		<br><br>
-		<input type="text" name="klantwoonplaats" placeholder="klantwoonplaats" />
+		<input type="text" name="klantwoonplaats" placeholder="Woonplaats" required />
 		<br><br>
 		<input type='submit' name='insert' value='Submit'>
-	</form></br>
-
-	<a href='read.php'>Back</a>
+		<br><br>
+		<a href='../../public/index.html'>Terug</a>
+	</form>
 </body>
 
 </html>
