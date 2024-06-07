@@ -8,7 +8,7 @@ use BasProject\classes\Klant;
 $errors = [];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-	if (isset($_POST["insert"])) {
+	if (isset($_POST["submit"])) {
 		$klant = new Klant();
 
 		$klant->klantNaam = $_POST['klantnaam'];
@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 		if (empty($errors)) {
 			if ($klant->insertKlant()) {
-				header("Location: ../../public/index.html");
+				header("Location: read.php");
 				exit();
 			} else {
 				$errors[] = "Insertion failed";
@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 if (!empty($errors)) {
-	echo '<p>' . implode('<br>', $errors) . '</p>';
+    echo '<p style="margin-left: 20px;">' . implode($errors) . '</p>';
 }
 ?>
 
@@ -42,24 +42,19 @@ if (!empty($errors)) {
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Crud</title>
+	<link rel="stylesheet" href="../../public/css/style.css">
 </head>
 
 <body>
-	<h1>Nieuwe klant</h1>
+	<h1 class="heading">Nieuwe klant</h1>
 	<form method="post">
-		<input type="text" name="klantnaam" placeholder="Naam" required />
-		<br><br>
-		<input type="text" name="klantemail" placeholder="Email" required />
-		<br><br>
-		<input type="text" name="klantadres" placeholder="Adres" required />
-		<br><br>
-		<input type="text" name="klantpostcode" placeholder="Postcode" required />
-		<br><br>
-		<input type="text" name="klantwoonplaats" placeholder="Woonplaats" required />
-		<br><br>
-		<input type='submit' name='insert' value='Submit'>
-		<br><br>
-		<a href='read.php'>Terug</a>
+		<input class="field" type="text" name="klantnaam" placeholder="Naam" />
+		<input class="field" type="text" name="klantemail" placeholder="Email" />
+		<input class="field" type="text" name="klantadres" placeholder="Adres" />
+		<input class="field" type="text" name="klantpostcode" placeholder="Postcode" />
+		<input class="field" type="text" name="klantwoonplaats" placeholder="Woonplaats" />
+		<input class="field" type='submit' name='submit' value='Submit'>
+		<a class="link" href='read.php'>Terug</a>
 	</form>
 </body>
 

@@ -16,43 +16,41 @@ $verkooporders = $verkooporder->selectOrder();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CRUD Verkooporders</title>
-    <link rel="stylesheet" href="../../public/css/verkooporder.css">
+    <link rel="stylesheet" href="../../public/css/style.css">
 </head>
 
 <body>
-    <h1>CRUD Verkooporders</h1>
-    <table>
+    <h1 class="heading">CRUD Verkooporders</h1>
+    <table class="table">
         <thead>
             <tr>
-                <th>Verkooporder ID</th>
-                <th>Klant ID</th>
-                <th>Artikel ID</th>
-                <th>Datum</th>
-                <th>Aantal</th>
-                <th>Status</th>
+                <th class="cell">Klant ID</th>
+                <th class="cell">Artikel ID</th>
+                <th class="cell">Datum</th>
+                <th class="cell">Aantal</th>
+                <th class="cell">Status</th>
             </tr>
         </thead>
         <tbody>
-            <?php if (!empty($verkooporders)): ?>
-                <?php foreach ($verkooporders as $order): ?>
+            <?php if (!empty($verkooporders)) : ?>
+                <?php foreach ($verkooporders as $order) : ?>
                     <tr>
-                        <td><?php echo $order['verkOrdId']; ?></td>
-                        <td><?php echo $order['klantId']; ?></td>
-                        <td><?php echo $order['artId']; ?></td>
-                        <td><?php echo $order['verkOrdDatum']; ?></td>
-                        <td><?php echo $order['verkOrdBestAantal']; ?></td>
-                        <td><?php echo $order['verkOrdStatus']; ?></td>
+                        <td class="cell"><?php echo $order['klantId']; ?></td>
+                        <td class="cell"><?php echo $order['artId']; ?></td>
+                        <td class="cell"><?php echo $order['verkOrdDatum']; ?></td>
+                        <td class="cell"><?php echo $order['verkOrdBestAantal']; ?></td>
+                        <td class="cell"><?php echo $order['verkOrdStatus']; ?></td>
                     </tr>
                 <?php endforeach; ?>
-            <?php else: ?>
+            <?php else : ?>
                 <tr>
-                    <td colspan="6">Geen verkooporders gevonden</td>
+                    <td class="cell" colspan="6">Geen verkooporders gevonden</td>
                 </tr>
             <?php endif; ?>
         </tbody>
     </table>
-    <br>
-    <a href='../../public/index.html'>Terug</a>
+    <a href="insert.php" class="link">Nieuwe verkooporder</a>
+    <a href='../../public/index.html' class="link">Terug</a>
 </body>
 
 </html>

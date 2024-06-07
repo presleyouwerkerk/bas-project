@@ -1,0 +1,72 @@
+/* general */
+body {
+    margin: 0px;
+    margin-top: 20px;
+    font-family: Arial, sans-serif;
+}
+
+/* menu */
+.menu {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.navbar {
+    background-color: #333;
+    padding: 10px;
+    text-align: center;
+}
+
+.navbar ul {
+    margin: 0;
+    padding: 0;
+}
+
+.navbar ul li {
+    display: inline-block;
+    margin-right: 30px;
+}
+
+.navbar ul li a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.navbar ul li a:hover {
+    color: #ffcc00;
+}
+
+/* tables */
+.table {
+    border: 1px solid black;
+    border-collapse: collapse;
+    margin-left: 20px;
+}
+
+.cell {
+    border: 1px solid black;
+    padding: 8px;
+}
+
+/* headers, links, fields*/
+.heading {
+    margin-bottom: 20px;
+    margin-left: 20px;
+}
+
+.link {
+    display: block;
+    margin-top: 20px;
+    margin-left: 20px;
+    color: black;
+}
+
+.link:hover {
+    color: #ffcc00;
+}
+
+.field {
+    display: block;
+    margin-top: 20px;
+    margin-left: 20px;
+}
