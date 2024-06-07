@@ -11,7 +11,7 @@ class Verkooporder
     public $verkOrdBestAantal;
     public $verkOrdStatus;
 
-    public function selectOrder(): array
+    public function selectVerkooporder(): array
     {
         try {
             $connection = new Connection();

@@ -6,7 +6,7 @@ require '../../vendor/autoload.php';
 use BasProject\classes\Verkooporder;
 
 $verkooporder = new Verkooporder();
-$verkooporders = $verkooporder->selectOrder();
+$verkooporders = $verkooporder->selectVerkooporder();
 ?>
 
 <!DOCTYPE html>
@@ -24,6 +24,7 @@ $verkooporders = $verkooporder->selectOrder();
     <table class="table">
         <thead>
             <tr>
+                <th class="cell">Verkooporder ID</th>
                 <th class="cell">Klant ID</th>
                 <th class="cell">Artikel ID</th>
                 <th class="cell">Datum</th>
@@ -35,6 +36,7 @@ $verkooporders = $verkooporder->selectOrder();
             <?php if (!empty($verkooporders)) : ?>
                 <?php foreach ($verkooporders as $order) : ?>
                     <tr>
+                        <td class="cell"><?php echo $order['verkOrdId']; ?></td>
                         <td class="cell"><?php echo $order['klantId']; ?></td>
                         <td class="cell"><?php echo $order['artId']; ?></td>
                         <td class="cell"><?php echo $order['verkOrdDatum']; ?></td>
