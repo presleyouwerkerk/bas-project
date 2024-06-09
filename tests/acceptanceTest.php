@@ -42,6 +42,13 @@ class acceptanceTest extends TestCase
         $this->assertNotEmpty($artikelen);
     }
 
+    public function testGetAllKlanten()
+    {
+        $klanten = $this->verkooporder->getAllKlanten();
+
+        $this->assertNotEmpty($klanten);
+    }
+
     public function testGetAllArtikelen()
     {
         $artikelen = $this->verkooporder->getAllArtikelen();

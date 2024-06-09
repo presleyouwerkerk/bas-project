@@ -45,6 +45,23 @@ class Verkooporder
         }
     }
 
+    public function getAllKlanten(): array
+    {
+        try {
+            $connection = new Connection();
+            $pdo = $connection->getPdo();
+            
+            $query = "SELECT klantId, klantNaam FROM klant";
+            $stmt = $pdo->prepare($query);
+            $stmt->execute();
+
+            return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        } catch (\PDOException $e) {
+            echo "Error: " . $e->getMessage();
+            return [];
+        }
+    }
+
     public function insertVerkooporder(): bool
     {
         try {
