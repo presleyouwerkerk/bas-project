@@ -4,9 +4,23 @@
 require '../../vendor/autoload.php';
 
 use BasProject\classes\Artikel;
+use BasProject\classes\Connection;
 
-$artikel = new Artikel();
-$artikelen = $artikel->selectArtikel();
+$connection = new Connection();
+$artikelInstance = new Artikel($connection);
+
+if (isset($_POST['delete'])) {
+    $artId = $_POST['artId'];
+    $artikelInstance->deleteArtikel($artId);
+}
+
+$searchTerm = isset($_GET['search']) ? $_GET['search'] : '';
+
+if (!empty($searchTerm)) {
+    $artikelen = $artikelInstance->searchArtikel($searchTerm);
+} else {
+    $artikelen = $artikelInstance->selectArtikel();
+}
 ?>
 
 <!DOCTYPE html>
@@ -21,6 +35,12 @@ $artikelen = $artikel->selectArtikel();
 
 <body>
     <h1 class="heading">CRUD Artikel</h1>
+
+    <form class="search-form" method="GET" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+        <input class="search-field" type="text" name="search" placeholder="Zoek">
+        <input class="search-button" type="submit" value="">
+    </form>
+    
     <table class="table">
         <thead>
             <tr>
@@ -32,6 +52,7 @@ $artikelen = $artikel->selectArtikel();
                 <th class="cell">Minimum voorraad</th>
                 <th class="cell">Maximum voorraad</th>
                 <th class="cell">Locatie</th>
+                <th class="cell"></th>
             </tr>
         </thead>
         <tbody>
@@ -46,6 +67,12 @@ $artikelen = $artikel->selectArtikel();
                         <td class="cell"><?php echo $artikel['artMinVoorraad']; ?></td>
                         <td class="cell"><?php echo $artikel['artMaxVoorraad']; ?></td>
                         <td class="cell"><?php echo $artikel['artLocatie']; ?></td>
+                        <td class="cell">
+                            <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+                                <input type="hidden" name="artId" value="<?php echo $artikel['artId']; ?>">
+                                <input type="submit" name="delete" value="Verwijder" class="delete-button">
+                            </form>
+                        </td>
                     </tr>
                 <?php endforeach; ?>
             <?php else : ?>

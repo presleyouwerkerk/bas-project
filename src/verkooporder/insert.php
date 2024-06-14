@@ -2,8 +2,11 @@
 require '../../vendor/autoload.php';
 
 use BasProject\classes\Verkooporder;
+use BasProject\classes\Connection;
 
-$verkooporder = new Verkooporder();
+$connection = new Connection();
+$verkooporder = new Verkooporder($connection);
+
 $artikelen = $verkooporder->getAllArtikelen();
 $klanten = $verkooporder->getAllKlanten();
 
@@ -17,7 +20,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $verkooporder->artId = $artId;
         $verkooporder->verkOrdBestAantal = $_POST['verkOrdBestAantal'];
         $verkooporder->verkOrdDatum = $_POST['verkOrdDatum'];
-        $verkooporder->verkOrdStatus = $_POST['verkOrdStatus'];
 
         $errors = $verkooporder->validateInsertVerkooporder();
 
@@ -33,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 if (!empty($errors)) {
-    echo '<p style="margin-left: 20px;">' . implode($errors) . '</p>';
+    echo '<p class="error">' . implode($errors) . '</p>';
 }
 ?>
 
@@ -64,10 +66,9 @@ if (!empty($errors)) {
             <?php endforeach; ?>
         </select>
         
-        <input class="field" type="number" name="verkOrdBestAantal" placeholder="Aantal" min="0">
+        <input class="field" type="number" name="verkOrdBestAantal" placeholder="Aantal">
         <input class="field" type="date" name="verkOrdDatum">
-        <input class="field" type="number" name="verkOrdStatus" placeholder="Status" min="0">
-        <button class="field" type="submit" name="submit">Submit</button>
+        <button class="submit" type="submit" name="submit">Submit</button>
     </form>
     <a href='read.php' class="link">Terug</a>
 </body>

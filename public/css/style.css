@@ -1,6 +1,11 @@
 /* general */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
 body {
-    margin: 0px;
     margin-top: 20px;
     font-family: Arial, sans-serif;
 }
@@ -32,23 +37,24 @@ body {
     text-decoration: none;
 }
 
-.navbar ul li a:hover {
-    color: #ffcc00;
-}
-
 /* tables */
 .table {
-    border: 1px solid black;
     border-collapse: collapse;
     margin-left: 20px;
 }
 
 .cell {
-    border: 1px solid black;
+    border-bottom: 1px solid black;
     padding: 8px;
+    text-align: left;
 }
 
-/* headers, links, fields*/
+.table tr th {
+    border-top: 1px solid black;
+    padding-top: 10px;
+}
+
+/* bunch of stuff */
 .heading {
     margin-bottom: 20px;
     margin-left: 20px;
@@ -56,9 +62,14 @@ body {
 
 .link {
     display: block;
+    width: fit-content;
     margin-top: 20px;
     margin-left: 20px;
     color: black;
+    text-decoration: none;
+    border: 1px solid black;
+    border-radius: 8px;
+    padding: 10px;
 }
 
 .field {
@@ -72,4 +83,76 @@ body {
     background-color: #fff;
     border-color: black;
     border-radius: 5px;
+    width: 200px;
+    text-align: left;
+    padding: 10px;
+}
+
+.submit {
+    display: block;
+    margin-top: 20px;
+    margin-left: 20px;
+    border: 1px solid white;
+    box-sizing: border-box;
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+    background-color: #fff;
+    border-color: black;
+    border-radius: 5px;
+    width: 200px;
+    text-align: center;
+    padding: 10px;
+}
+
+.dropdown {
+    border-bottom: 1px solid black;
+    text-align: left;
+    background-color: #fff;
+    border: 1px solid white;
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+    border-color: black;
+    border-radius: 5px;
+    width: 120px;
+}
+
+p.error {
+    display: inline-block;
+    color: rgb(141, 0, 0);
+    border: 1px solid rgb(141, 0, 0);
+    padding: 10px;
+    border-radius: 8px;
+    margin-left: 20px;
+    margin-bottom: 20px;
+    background-color: rgb(233, 140, 140);
+}
+
+.search-form {
+    margin-left: 20px;
+}
+
+.search-field {
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+    padding: 8px;
+    border: none;
+    border-radius: 4px;
+    width: auto;
+    margin-right: 5px;
+    vertical-align: middle;
+    outline: none;
+    background-color: transparent;
+}
+
+.search-button {
+    display: none;
+}
+
+.delete-button {
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+    border: none;
+    background-color: transparent;
+    color: black;
+    cursor: pointer;
 }

@@ -1,12 +1,25 @@
 <?php
-// read.php
 
 require '../../vendor/autoload.php';
 
 use BasProject\classes\Klant;
+use BasProject\classes\Connection;
 
-$klant = new Klant();
-$klanten = $klant->selectKlant();
+$connection = new Connection();
+$klantInstance = new Klant($connection);
+
+if (isset($_POST['delete'])) {
+    $klantId = $_POST['klantId'];
+    $klantInstance->deleteKlant($klantId);
+}
+
+$searchTerm = isset($_GET['search']) ? $_GET['search'] : '';
+
+if (!empty($searchTerm)) {
+    $klanten = $klantInstance->searchKlant($searchTerm);
+} else {
+    $klanten = $klantInstance->selectKlant();
+}
 ?>
 
 <!DOCTYPE html>
@@ -21,6 +34,12 @@ $klanten = $klant->selectKlant();
 
 <body>
     <h1 class="heading">CRUD Klant</h1>
+
+    <form class="search-form" method="GET" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+        <input class="search-field" type="text" name="search" placeholder="Zoek">
+        <input class="search-button" type="submit" value="">
+    </form>
+
     <table class="table">
         <thead>
             <tr>
@@ -30,11 +49,12 @@ $klanten = $klant->selectKlant();
                 <th class="cell">Adres</th>
                 <th class="cell">Postcode</th>
                 <th class="cell">Woonplaats</th>
+                <th class="cell"></th>
             </tr>
         </thead>
         <tbody>
-            <?php if (!empty($klanten)): ?>
-                <?php foreach ($klanten as $klant): ?>
+            <?php if (!empty($klanten)) : ?>
+                <?php foreach ($klanten as $klant) : ?>
                     <tr>
                         <td class="cell"><?php echo $klant['klantId']; ?></td>
                         <td class="cell"><?php echo $klant['klantNaam']; ?></td>
@@ -42,11 +62,17 @@ $klanten = $klant->selectKlant();
                         <td class="cell"><?php echo $klant['klantAdres']; ?></td>
                         <td class="cell"><?php echo $klant['klantPostcode']; ?></td>
                         <td class="cell"><?php echo $klant['klantWoonplaats']; ?></td>
+                        <td class="cell">
+                            <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+                                <input type="hidden" name="klantId" value="<?php echo $klant['klantId']; ?>">
+                                <input type="submit" name="delete" value="Verwijder" class="delete-button">
+                            </form>
+                        </td>
                     </tr>
                 <?php endforeach; ?>
-            <?php else: ?>
+            <?php else : ?>
                 <tr>
-                    <td class="cell" colspan="6">Geen klanten gevonden</td>
+                    <td class="cell" colspan="6">Geen klant gevonden</td>
                 </tr>
             <?php endif; ?>
         </tbody>

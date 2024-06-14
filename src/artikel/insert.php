@@ -4,12 +4,14 @@
 require '../../vendor/autoload.php';
 
 use BasProject\classes\Artikel;
+use BasProject\classes\Connection;
 
 $errors = [];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST["submit"])) {
-        $artikel = new Artikel();
+        $connection = new Connection();
+        $artikel = new Artikel($connection);
 
         $artikel->artOmschrijving = $_POST['artOmschrijving'];
         $artikel->artInkoop = $_POST['artInkoop']; 
@@ -33,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 if (!empty($errors)) {
-    echo '<p style="margin-left: 20px;">' . implode('<br>', $errors) . '</p>';
+    echo '<p class="error">' . implode('<br>', $errors) . '</p>';
 }
 ?>
 
@@ -50,14 +52,14 @@ if (!empty($errors)) {
 <body>
     <h1 class="heading">Nieuw artikel</h1>
     <form method="post">
-        <input class="field" type="text" name="artOmschrijving" placeholder="Artikel omschrijving" />
-        <input class="field" type="number" step="0.01" name="artInkoop" placeholder="Inkoopprijs" />
-        <input class="field" type="number" step="0.01" name="artVerkoop" placeholder="Verkoopprijs" />
-        <input class="field" type="number" name="artVoorraad" placeholder="Huidige voorraad" />
-        <input class="field" type="number" name="artMinVoorraad" placeholder="Minimale voorraad" />
-        <input class="field" type="number" name="artMaxVoorraad" placeholder="Maximale voorraad" />
-        <input class="field" type="number" name="artLocatie" placeholder="Locatie in het magazijn" />
-        <input class="field" type='submit' name='submit' value='Submit'>
+        <input class="field" type="text" name="artOmschrijving" placeholder="Artikel omschrijving">
+        <input class="field" type="number" step="0.01" name="artInkoop" placeholder="Inkoopprijs">
+        <input class="field" type="number" step="0.01" name="artVerkoop" placeholder="Verkoopprijs">
+        <input class="field" type="number" name="artVoorraad" placeholder="Huidige voorraad">
+        <input class="field" type="number" name="artMinVoorraad" placeholder="Minimale voorraad">
+        <input class="field" type="number" name="artMaxVoorraad" placeholder="Maximale voorraad">
+        <input class="field" type="number" name="artLocatie" placeholder="Locatie">
+        <input class="submit" type='submit' name='submit' value='Submit'>
         <a class="link" href='read.php'>Terug</a>
     </form>
 </body>

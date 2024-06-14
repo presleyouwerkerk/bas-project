@@ -4,12 +4,14 @@
 require '../../vendor/autoload.php';
 
 use BasProject\classes\Klant;
+use BasProject\classes\Connection;
 
 $errors = [];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	if (isset($_POST["submit"])) {
-		$klant = new Klant();
+		$connection = new Connection();
+        $klant = new Klant($connection);
 
 		$klant->klantNaam = $_POST['klantnaam'];
 		$klant->klantEmail = $_POST['klantemail'];
@@ -31,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 if (!empty($errors)) {
-    echo '<p style="margin-left: 20px;">' . implode($errors) . '</p>';
+    echo '<p class="error">' . implode($errors) . '</p>';
 }
 ?>
 
@@ -48,12 +50,12 @@ if (!empty($errors)) {
 <body>
 	<h1 class="heading">Nieuwe klant</h1>
 	<form method="post">
-		<input class="field" type="text" name="klantnaam" placeholder="Naam" />
-		<input class="field" type="text" name="klantemail" placeholder="Email" />
-		<input class="field" type="text" name="klantadres" placeholder="Adres" />
-		<input class="field" type="text" name="klantpostcode" placeholder="Postcode" />
-		<input class="field" type="text" name="klantwoonplaats" placeholder="Woonplaats" />
-		<input class="field" type='submit' name='submit' value='Submit'>
+		<input class="field" type="text" name="klantnaam" placeholder="Naam">
+		<input class="field" type="text" name="klantemail" placeholder="Email">
+		<input class="field" type="text" name="klantadres" placeholder="Adres">
+		<input class="field" type="text" name="klantpostcode" placeholder="Postcode">
+		<input class="field" type="text" name="klantwoonplaats" placeholder="Woonplaats">
+		<input class="submit" type='submit' name='submit' value='Submit'>
 		<a class="link" href='read.php'>Terug</a>
 	</form>
 </body>

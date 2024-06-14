@@ -5,6 +5,7 @@ namespace BasProject\classes;
 
 class Artikel
 {
+    private $connection;
     public $artOmschrijving;
     public $artInkoop;
     public $artVerkoop;
@@ -13,11 +14,15 @@ class Artikel
     public $artMaxVoorraad;
     public $artLocatie;
 
+    public function __construct(Connection $connection)
+    {
+        $this->connection = $connection;
+    }
+
     public function insertArtikel(): bool
     {
         try {
-            $connection = new Connection();
-            $pdo = $connection->getPdo();
+            $pdo = $this->connection->getPdo();
 
             $query = "INSERT INTO artikel (artOmschrijving, artInkoop, artVerkoop, artVoorraad, artMinVoorraad, artMaxVoorraad, artLocatie) 
 			          VALUES (:artOmschrijving, :artInkoop, :artVerkoop, :artVoorraad, :artMinVoorraad, :artMaxVoorraad, :artLocatie)";
@@ -32,7 +37,7 @@ class Artikel
             $stmt->bindValue(':artMaxVoorraad', $this->artMaxVoorraad);
             $stmt->bindValue(':artLocatie', $this->artLocatie);
             $stmt->execute();
-            
+
             return true;
         } catch (\PDOException $e) {
             error_log("Error inserting" . $e->getMessage());
@@ -56,9 +61,8 @@ class Artikel
     public function selectArtikel(): array
     {
         try {
-            $connection = new Connection();
-            $pdo = $connection->getPdo();
-            
+            $pdo = $this->connection->getPdo();
+
             $query = "SELECT * FROM artikel";
             $stmt = $pdo->prepare($query);
             $stmt->execute();
@@ -67,6 +71,39 @@ class Artikel
         } catch (\PDOException $e) {
             echo "Error: " . $e->getMessage();
             return [];
+        }
+    }
+
+    public function searchArtikel(string $query): array
+	{
+		try {
+			$pdo = $this->connection->getPdo();
+
+			$stmt = $pdo->prepare("SELECT * FROM artikel WHERE artOmschrijving LIKE :query");
+			$stmt->bindValue(':query', "%$query%");
+			$stmt->execute();
+
+			return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+		} catch (\PDOException $e) {
+			error_log("Error searching artikel: " . $e->getMessage());
+			return [];
+		}
+	}
+
+    public function deleteArtikel(int $id): bool
+    {
+        try {
+            $pdo = $this->connection->getPdo();
+
+            $query = "DELETE FROM artikel WHERE artId = :artId";
+            $stmt = $pdo->prepare($query);
+            $stmt->bindValue(':artId', $id);
+            $stmt->execute();
+
+            return true;
+        } catch (\PDOException $e) {
+            error_log("Error deleting artikel: " . $e->getMessage());
+            return false;
         }
     }
 }
