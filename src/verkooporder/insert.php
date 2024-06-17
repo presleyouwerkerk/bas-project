@@ -33,10 +33,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 }
-
-if (!empty($errors)) {
-    echo '<p class="error">' . implode($errors) . '</p>';
-}
 ?>
 
 <!DOCTYPE html>
@@ -50,6 +46,14 @@ if (!empty($errors)) {
 </head>
 
 <body>
+    <?php 
+    include '../../public/index.html'; 
+    
+    if (!empty($errors)) {
+        echo '<p class="error">' . implode($errors) . '</p>';
+    }
+    ?>
+
     <h1 class="heading">Nieuwe verkooporder</h1>
     <form method="post">
         <select class="field" name="klantId">
@@ -65,12 +69,11 @@ if (!empty($errors)) {
                 <option value="<?php echo $artikel['artId']; ?>"><?php echo $artikel['artOmschrijving']; ?></option>
             <?php endforeach; ?>
         </select>
-        
+
         <input class="field" type="number" name="verkOrdBestAantal" placeholder="Aantal">
         <input class="field" type="date" name="verkOrdDatum">
         <button class="submit" type="submit" name="submit">Submit</button>
     </form>
-    <a href='read.php' class="link">Terug</a>
 </body>
 
 </html>

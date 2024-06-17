@@ -14,11 +14,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $artikel = new Artikel($connection);
 
         $artikel->artOmschrijving = $_POST['artOmschrijving'];
-        $artikel->artInkoop = $_POST['artInkoop']; 
-        $artikel->artVerkoop = $_POST['artVerkoop'];  
-        $artikel->artVoorraad = $_POST['artVoorraad'];  
-        $artikel->artMinVoorraad = $_POST['artMinVoorraad'];  
-        $artikel->artMaxVoorraad = $_POST['artMaxVoorraad'];  
+        $artikel->artInkoop = $_POST['artInkoop'];
+        $artikel->artVerkoop = $_POST['artVerkoop'];
+        $artikel->artVoorraad = $_POST['artVoorraad'];
+        $artikel->artMinVoorraad = $_POST['artMinVoorraad'];
+        $artikel->artMaxVoorraad = $_POST['artMaxVoorraad'];
         $artikel->artLocatie = $_POST['artLocatie'];
 
         $errors = $artikel->validateInsertArtikel();
@@ -33,10 +33,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 }
-
-if (!empty($errors)) {
-    echo '<p class="error">' . implode('<br>', $errors) . '</p>';
-}
 ?>
 
 <!DOCTYPE html>
@@ -50,6 +46,14 @@ if (!empty($errors)) {
 </head>
 
 <body>
+    <?php 
+    include '../../public/index.html'; 
+    
+    if (!empty($errors)) {
+        echo '<p class="error">' . implode('<br>', $errors) . '</p>';
+    }
+    ?>
+
     <h1 class="heading">Nieuw artikel</h1>
     <form method="post">
         <input class="field" type="text" name="artOmschrijving" placeholder="Artikel omschrijving">
@@ -60,7 +64,6 @@ if (!empty($errors)) {
         <input class="field" type="number" name="artMaxVoorraad" placeholder="Maximale voorraad">
         <input class="field" type="number" name="artLocatie" placeholder="Locatie">
         <input class="submit" type='submit' name='submit' value='Submit'>
-        <a class="link" href='read.php'>Terug</a>
     </form>
 </body>
 

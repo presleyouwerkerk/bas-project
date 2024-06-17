@@ -11,7 +11,7 @@ $errors = [];
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	if (isset($_POST["submit"])) {
 		$connection = new Connection();
-        $klant = new Klant($connection);
+		$klant = new Klant($connection);
 
 		$klant->klantNaam = $_POST['klantnaam'];
 		$klant->klantEmail = $_POST['klantemail'];
@@ -31,10 +31,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		}
 	}
 }
-
-if (!empty($errors)) {
-    echo '<p class="error">' . implode($errors) . '</p>';
-}
 ?>
 
 <!DOCTYPE html>
@@ -48,6 +44,14 @@ if (!empty($errors)) {
 </head>
 
 <body>
+	<?php 
+	include '../../public/index.html'; 
+	
+	if (!empty($errors)) {
+		echo '<p class="error">' . implode($errors) . '</p>';
+	}
+	?>
+
 	<h1 class="heading">Nieuwe klant</h1>
 	<form method="post">
 		<input class="field" type="text" name="klantnaam" placeholder="Naam">
@@ -56,7 +60,6 @@ if (!empty($errors)) {
 		<input class="field" type="text" name="klantpostcode" placeholder="Postcode">
 		<input class="field" type="text" name="klantwoonplaats" placeholder="Woonplaats">
 		<input class="submit" type='submit' name='submit' value='Submit'>
-		<a class="link" href='read.php'>Terug</a>
 	</form>
 </body>
 

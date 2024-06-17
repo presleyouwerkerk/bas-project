@@ -33,6 +33,8 @@ if (!empty($searchTerm)) {
 </head>
 
 <body>
+    <?php include '../../public/index.html'; ?>
+
     <h1 class="heading">CRUD Klant</h1>
 
     <form class="search-form" method="GET" action="<?php echo $_SERVER['PHP_SELF']; ?>">
@@ -78,7 +80,6 @@ if (!empty($searchTerm)) {
         </tbody>
     </table>
     <a href="insert.php" class="link">Nieuwe klant</a>
-    <a href='../../public/index.html' class="link">Terug</a>
 </body>
 
 </html>

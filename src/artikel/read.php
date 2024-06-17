@@ -34,13 +34,15 @@ if (!empty($searchTerm)) {
 </head>
 
 <body>
+    <?php include '../../public/index.html'; ?>
+
     <h1 class="heading">CRUD Artikel</h1>
 
     <form class="search-form" method="GET" action="<?php echo $_SERVER['PHP_SELF']; ?>">
         <input class="search-field" type="text" name="search" placeholder="Zoek">
         <input class="search-button" type="submit" value="">
     </form>
-    
+
     <table class="table">
         <thead>
             <tr>
@@ -77,13 +79,12 @@ if (!empty($searchTerm)) {
                 <?php endforeach; ?>
             <?php else : ?>
                 <tr>
-                    <td class="cell" colspan="6">Geen artikelen gevonden</td>
+                    <td class="cell" colspan="7">Geen artikelen gevonden</td>
                 </tr>
             <?php endif; ?>
         </tbody>
     </table>
     <a href="insert.php" class="link">Nieuw artikel</a>
-    <a href='../../public/index.html' class="link">Terug</a>
 </body>
 
 </html>
