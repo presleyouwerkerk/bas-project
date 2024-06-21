@@ -46,12 +46,12 @@ if (!empty($searchTerm)) {
     <table class="table">
         <thead>
             <tr>
-                <th class="cell">Verkooporder ID</th>
-                <th class="cell">Klant ID</th>
-                <th class="cell">Artikel ID</th>
+                <th class="cell">Klant</th>
+                <th class="cell">Artikel</th>
                 <th class="cell">Datum</th>
                 <th class="cell">Aantal</th>
                 <th class="cell">Status</th>
+                <th class="cell"></th>
                 <th class="cell"></th>
             </tr>
         </thead>
@@ -59,32 +59,37 @@ if (!empty($searchTerm)) {
             <?php if (!empty($verkooporders)) : ?>
                 <?php foreach ($verkooporders as $order) : ?>
                     <tr>
-                        <td class="cell"><?php echo $order['verkOrdId']; ?></td>
-                        <td class="cell"><?php echo $order['klantId']; ?></td>
-                        <td class="cell"><?php echo $order['artId']; ?></td>
+                        <td class="cell"><?php echo $order['klantNaam']; ?></td>
+                        <td class="cell"><?php echo $order['artOmschrijving']; ?></td>
                         <td class="cell"><?php echo $order['verkOrdDatum']; ?></td>
                         <td class="cell"><?php echo $order['verkOrdBestAantal']; ?></td>
                         <td class="cell">
                             <form action="orderstatus.php" method="POST">
                                 <input type="hidden" name="verkOrdId" value="<?php echo $order['verkOrdId']; ?>">
                                 <select class="dropdown" name="verkOrdStatus" onchange="this.form.submit()">
-                                    <option value="Onderweg" <?php echo ($order['verkOrdStatus'] == 'Onderweg') ? 'selected' : ''; ?>>Onderweg</option>
-                                    <option value="Geleverd" <?php echo ($order['verkOrdStatus'] == 'Geleverd') ? 'selected' : ''; ?>>Geleverd</option>
-                                    <option value="Geannuleerd" <?php echo ($order['verkOrdStatus'] == 'Geannuleerd') ? 'selected' : ''; ?>>Geannuleerd</option>
+                                    <option value="Onderweg" <?php echo $order['verkOrdStatus'] == 'Onderweg' ? 'selected' : ''; ?>>Onderweg</option>
+                                    <option value="Geleverd" <?php echo $order['verkOrdStatus'] == 'Geleverd' ? 'selected' : ''; ?>>Geleverd</option>
+                                    <option value="Geannuleerd" <?php echo $order['verkOrdStatus'] == 'Geannuleerd' ? 'selected' : ''; ?>>Geannuleerd</option>
                                 </select>
+                            </form>
+                        </td>
+                        <td class="cell">
+                            <form action="update.php" method="GET">
+                                <input type="hidden" name="verkOrdId" value="<?php echo $order['verkOrdId']; ?>">
+                                <input type="submit" value="Bijwerken" class="button">
                             </form>
                         </td>
                         <td class="cell">
                             <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
                                 <input type="hidden" name="verkOrdId" value="<?php echo $order['verkOrdId']; ?>">
-                                <input type="submit" name="delete" value="Verwijder" class="delete-button">
+                                <input type="submit" name="delete" value="Verwijder" class="button">
                             </form>
                         </td>
                     </tr>
                 <?php endforeach; ?>
             <?php else : ?>
                 <tr>
-                    <td class="cell" colspan="7">Geen verkooporders gevonden</td>
+                    <td class="cell" colspan="6">Geen verkooporders gevonden</td>
                 </tr>
             <?php endif; ?>
         </tbody>

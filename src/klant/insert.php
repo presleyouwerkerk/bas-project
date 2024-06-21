@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$klant->klantPostcode = $_POST['klantpostcode'];
 		$klant->klantWoonplaats = $_POST['klantwoonplaats'];
 
-		$errors = $klant->validateInsertKlant();
+		$errors = $klant->validateKlant();
 
 		if (empty($errors)) {
 			if ($klant->insertKlant()) {

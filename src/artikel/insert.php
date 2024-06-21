@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $artikel->artMaxVoorraad = $_POST['artMaxVoorraad'];
         $artikel->artLocatie = $_POST['artLocatie'];
 
-        $errors = $artikel->validateInsertArtikel();
+        $errors = $artikel->validateArtikel();
 
         if (empty($errors)) {
             if ($artikel->insertArtikel()) {

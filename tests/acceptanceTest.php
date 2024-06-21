@@ -1,25 +1,29 @@
 <?php
-// acceptancetest.php
+// AcceptanceTest.php
 
 use PHPUnit\Framework\TestCase;
 use BasProject\classes\Klant;
 use BasProject\classes\Artikel;
 use BasProject\classes\Verkooporder;
+use BasProject\classes\Connection;
 
 #[\PHPUnit\Framework\Attributes\CoversClass(Klant::class)]
 #[\PHPUnit\Framework\Attributes\CoversClass(Artikel::class)]
 #[\PHPUnit\Framework\Attributes\CoversClass(Verkooporder::class)]
-class acceptanceTest extends TestCase
+#[\PHPUnit\Framework\Attributes\CoversClass(Connection::class)]
+class AcceptanceTest extends TestCase
 {
     private $klant;
     private $artikel;
     private $verkooporder;
+    private $connection;
 
     protected function setUp(): void
     {
-        $this->klant = new Klant();
-        $this->artikel = new Artikel();
-        $this->verkooporder = new Verkooporder();
+        $this->connection = new Connection();
+        $this->klant = new Klant($this->connection);
+        $this->artikel = new Artikel($this->connection);
+        $this->verkooporder = new Verkooporder($this->connection);
     }
 
     public function testInsertKlant()

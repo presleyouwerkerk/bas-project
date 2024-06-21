@@ -1,4 +1,5 @@
 <?php
+// read.php
 
 require '../../vendor/autoload.php';
 
@@ -45,12 +46,12 @@ if (!empty($searchTerm)) {
     <table class="table">
         <thead>
             <tr>
-                <th class="cell">Klant ID</th>
-                <th class="cell">Naam</th>
+                <th class="cell">Klant</th>
                 <th class="cell">Email</th>
                 <th class="cell">Adres</th>
                 <th class="cell">Postcode</th>
                 <th class="cell">Woonplaats</th>
+                <th class="cell"></th>
                 <th class="cell"></th>
             </tr>
         </thead>
@@ -58,16 +59,21 @@ if (!empty($searchTerm)) {
             <?php if (!empty($klanten)) : ?>
                 <?php foreach ($klanten as $klant) : ?>
                     <tr>
-                        <td class="cell"><?php echo $klant['klantId']; ?></td>
                         <td class="cell"><?php echo $klant['klantNaam']; ?></td>
                         <td class="cell"><?php echo $klant['klantEmail']; ?></td>
                         <td class="cell"><?php echo $klant['klantAdres']; ?></td>
                         <td class="cell"><?php echo $klant['klantPostcode']; ?></td>
                         <td class="cell"><?php echo $klant['klantWoonplaats']; ?></td>
                         <td class="cell">
+                            <form action="update.php" method="GET">
+                                <input type="hidden" name="klantId" value="<?php echo $klant['klantId']; ?>">
+                                <input type="submit" value="Bijwerken" class="button">
+                            </form>
+                        </td>
+                        <td class="cell">
                             <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
                                 <input type="hidden" name="klantId" value="<?php echo $klant['klantId']; ?>">
-                                <input type="submit" name="delete" value="Verwijder" class="delete-button">
+                                <input type="submit" name="delete" value="Verwijder" class="button">
                             </form>
                         </td>
                     </tr>

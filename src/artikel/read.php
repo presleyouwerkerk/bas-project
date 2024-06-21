@@ -46,8 +46,7 @@ if (!empty($searchTerm)) {
     <table class="table">
         <thead>
             <tr>
-                <th class="cell">Artikel ID</th>
-                <th class="cell">Omschrijving</th>
+                <th class="cell">Artikel</th>
                 <th class="cell">Inkoop</th>
                 <th class="cell">Verkoop</th>
                 <th class="cell">Huidge voorraad</th>
@@ -55,13 +54,13 @@ if (!empty($searchTerm)) {
                 <th class="cell">Maximum voorraad</th>
                 <th class="cell">Locatie</th>
                 <th class="cell"></th>
+                <th class="cell"></th>
             </tr>
         </thead>
         <tbody>
             <?php if (!empty($artikelen)) : ?>
                 <?php foreach ($artikelen as $artikel) : ?>
                     <tr>
-                        <td class="cell"><?php echo $artikel['artId']; ?></td>
                         <td class="cell"><?php echo $artikel['artOmschrijving']; ?></td>
                         <td class="cell"><?php echo $artikel['artInkoop']; ?></td>
                         <td class="cell"><?php echo $artikel['artVerkoop']; ?></td>
@@ -70,16 +69,22 @@ if (!empty($searchTerm)) {
                         <td class="cell"><?php echo $artikel['artMaxVoorraad']; ?></td>
                         <td class="cell"><?php echo $artikel['artLocatie']; ?></td>
                         <td class="cell">
+                            <form action="update.php" method="GET">
+                                <input type="hidden" name="artId" value="<?php echo $artikel['artId'] ?>">
+                                <input type="submit" value="Bijwerken" class="button">
+                            </form>
+                        </td>
+                        <td class="cell">
                             <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
                                 <input type="hidden" name="artId" value="<?php echo $artikel['artId']; ?>">
-                                <input type="submit" name="delete" value="Verwijder" class="delete-button">
+                                <input type="submit" name="delete" value="Verwijder" class="button">
                             </form>
                         </td>
                     </tr>
                 <?php endforeach; ?>
             <?php else : ?>
                 <tr>
-                    <td class="cell" colspan="7">Geen artikelen gevonden</td>
+                    <td class="cell" colspan="8">Geen artikelen gevonden</td>
                 </tr>
             <?php endif; ?>
         </tbody>

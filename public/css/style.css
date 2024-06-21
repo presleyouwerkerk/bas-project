@@ -81,6 +81,7 @@ body {
     margin-top: 20px;
     margin-bottom: 20px;
     margin-left: 20px;
+    width: fit-content;
 }
 
 .link {
@@ -93,7 +94,7 @@ body {
     border: none;
     border-radius: 8px;
     padding: 10px;
-    background-color: #db2b2b;
+    background-color: #e42626;
 }
 
 .field {
@@ -149,6 +150,8 @@ p.error {
     margin-top: 20px;
     margin-left: 20px;
     background-color: #e42626;
+    width: 200px;
+    text-align: center;
 }
 
 .search-form {
@@ -172,7 +175,7 @@ p.error {
     display: none;
 }
 
-.delete-button {
+.button {
     font-size: 16px;
     font-family: Arial, sans-serif;
     border: none;

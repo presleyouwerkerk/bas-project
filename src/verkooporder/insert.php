@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $verkooporder->verkOrdBestAantal = $_POST['verkOrdBestAantal'];
         $verkooporder->verkOrdDatum = $_POST['verkOrdDatum'];
 
-        $errors = $verkooporder->validateInsertVerkooporder();
+        $errors = $verkooporder->validateVerkooporder();
 
         if (empty($errors)) {
             if ($verkooporder->insertVerkooporder()) {
