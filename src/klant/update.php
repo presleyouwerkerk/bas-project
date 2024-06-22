@@ -55,27 +55,27 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         <div class="form-group">
             <label for="klantNaam">Klant:</label>
-            <input class="update-field" id="klantNaam" class="field" type="text" name="klantNaam" placeholder="Naam" value="<?php echo $klant['klantNaam']; ?>">
+            <input id="klantNaam" class="field" type="text" name="klantNaam" placeholder="Naam" value="<?php echo $klant['klantNaam']; ?>">
         </div>
 
         <div class="form-group">
             <label for="klantEmail">Email:</label>
-            <input class="update-field" id="klantEmail" class="field" type="text" name="klantEmail" placeholder="Email" value="<?php echo $klant['klantEmail']; ?>">
+            <input id="klantEmail" class="field" type="text" name="klantEmail" placeholder="Email" value="<?php echo $klant['klantEmail']; ?>">
         </div>
 
         <div class="form-group">
             <label for="klantAdres">Adres:</label>
-            <input class="update-field" id="klantAdres" class="field" type="text" name="klantAdres" placeholder="Adres" value="<?php echo $klant['klantAdres']; ?>">
+            <input id="klantAdres" class="field" type="text" name="klantAdres" placeholder="Adres" value="<?php echo $klant['klantAdres']; ?>">
         </div>
 
         <div class="form-group">
             <label for="klantPostcode">Postcode:</label>
-            <input class="update-field" id="klantPostcode" class="field" type="text" name="klantPostcode" placeholder="Postcode" value="<?php echo $klant['klantPostcode']; ?>">
+            <input id="klantPostcode" class="field" type="text" name="klantPostcode" placeholder="Postcode" value="<?php echo $klant['klantPostcode']; ?>">
         </div>
 
         <div class="form-group">
             <label for="klantWoonPlaats">Woonplaats:</label>
-            <input class="update-field" id="klantWoonPlaats" class="field" type="text" name="klantWoonplaats" placeholder="Woonplaats" value="<?php echo $klant['klantWoonplaats']; ?>">
+            <input id="klantWoonPlaats" class="field" type="text" name="klantWoonplaats" placeholder="Woonplaats" value="<?php echo $klant['klantWoonplaats']; ?>">
         </div>
 
         <input class="submit" type='submit' value='Bijwerken'>

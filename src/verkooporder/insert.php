@@ -13,23 +13,21 @@ $klanten = $verkooporder->getAllKlanten();
 $errors = [];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['submit'])) {
-        $klantId = isset($_POST['klantId']) ? $_POST['klantId'] : null;
-        $verkooporder->klantId = $klantId;
-        $artId = isset($_POST['artId']) ? $_POST['artId'] : null;
-        $verkooporder->artId = $artId;
-        $verkooporder->verkOrdBestAantal = $_POST['verkOrdBestAantal'];
-        $verkooporder->verkOrdDatum = $_POST['verkOrdDatum'];
+    $klantId = isset($_POST['klantId']) ? $_POST['klantId'] : null;
+    $verkooporder->klantId = $klantId;
+    $artId = isset($_POST['artId']) ? $_POST['artId'] : null;
+    $verkooporder->artId = $artId;
+    $verkooporder->verkOrdBestAantal = $_POST['verkOrdBestAantal'];
+    $verkooporder->verkOrdDatum = $_POST['verkOrdDatum'];
 
-        $errors = $verkooporder->validateVerkooporder();
+    $errors = $verkooporder->validateVerkooporder();
 
-        if (empty($errors)) {
-            if ($verkooporder->insertVerkooporder()) {
-                header("Location: read.php");
-                exit;
-            } else {
-                $errors[] = "Insertion failed";
-            }
+    if (empty($errors)) {
+        if ($verkooporder->insertVerkooporder()) {
+            header("Location: read.php");
+            exit;
+        } else {
+            $errors[] = "Insertion failed";
         }
     }
 }
@@ -48,32 +46,44 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
     <?php include '../../public/index.html'; ?>
 
+    <h1 class="heading">Nieuwe verkooporder</h1>
+
     <?php foreach ($errors as $error) : ?>
         <?php echo '<p class="error">' . $error; ?>
     <?php endforeach; ?>
 
-    <h1 class="heading">Nieuwe verkooporder</h1>
+    <form method="POST" action="<?php echo $_SERVER["PHP_SELF"]; ?>">
+        <div class="form-group">
+            <label for="klantId">Klant:</label>
+            <select id="klantId" class="field" name="klantId">
+                <option value="" disabled selected hidden>Klant</option>
+                <?php foreach ($klanten as $klant) : ?>
+                    <option value="<?php echo $klant['klantId']; ?>"><?php echo $klant['klantNaam']; ?></option>
+                <?php endforeach; ?>
+            </select>
+        </div>
 
-    <form method="post" action="<?php echo $_SERVER["PHP_SELF"]; ?>">
-        <select class="field" name="klantId">
-            <option value="" disabled selected hidden>Klant</option>
-            <?php foreach ($klanten as $klant) : ?>
-                <option value="<?php echo $klant['klantId']; ?>"><?php echo $klant['klantNaam']; ?></option>
-            <?php endforeach; ?>
-        </select>
+        <div class="form-group">
+            <label for="artId">Artikel:</label>
+            <select id="artId" class="field" name="artId">
+                <option value="" disabled selected hidden>Artikel</option>
+                <?php foreach ($artikelen as $artikel) : ?>
+                    <option value="<?php echo $artikel['artId']; ?>"><?php echo $artikel['artOmschrijving']; ?></option>
+                <?php endforeach; ?>
+            </select>
+        </div>
 
-        <select class="field" name="artId">
-            <option value="" disabled selected hidden>Artikel</option>
-            <?php foreach ($artikelen as $artikel) : ?>
-                <option value="<?php echo $artikel['artId']; ?>"><?php echo $artikel['artOmschrijving']; ?></option>
-            <?php endforeach; ?>
-        </select>
+        <div class="form-group">
+            <label for="verkOrdBestAantal">Aantal:</label>
+            <input id="verkOrdbestAantal" class="field" type="number" name="verkOrdBestAantal" placeholder="Aantal">
+        </div>
 
-        <input class="field" type="number" name="verkOrdBestAantal" placeholder="Aantal">
+        <div class="form-group">
+            <label for="verkOrdDatum">Datum:</label>
+            <input id="verkOrdDatum" class="field" type="date" name="verkOrdDatum">
+        </div>
 
-        <input class="field" type="date" name="verkOrdDatum">
-        
-        <button class="submit" type="submit" name="submit">Submit</button>
+        <input class="submit" type="submit" value="Submit">
     </form>
 </body>
 

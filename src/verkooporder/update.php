@@ -1,6 +1,4 @@
 <?php
-// update.php
-
 require '../../vendor/autoload.php';
 
 use BasProject\classes\Verkooporder;
@@ -59,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <div class="form-group">
             <label for="klantId">Klant:</label>
-            <select id="klantId" name="klantId" class="update-field">
+            <select id="klantId" name="klantId" class="field">
                 <?php foreach ($klanten as $klant) : ?>
                     <option value="<?php echo $klant['klantId']; ?>" <?php echo $klant['klantId'] == $order['klantId'] ? 'selected' : ''; ?>>
                         <?php echo $klant['klantNaam']; ?>
@@ -70,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <div class="form-group">
             <label for="artId">Artikel:</label>
-            <select id="artId" name="artId" class="update-field">
+            <select id="artId" name="artId" class="field">
                 <?php foreach ($artikelen as $artikel) : ?>
                     <option value="<?php echo $artikel['artId']; ?>" <?php echo $artikel['artId'] == $order['artId'] ? 'selected' : ''; ?>>
                         <?php echo $artikel['artOmschrijving']; ?>
@@ -81,17 +79,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <div class="form-group">
             <label for="verkOrdDatum">Datum:</label>
-            <input id="verkOrdDatum" name="verkOrdDatum" class="update-field" type="date" value="<?php echo $order['verkOrdDatum']; ?>">
+            <input id="verkOrdDatum" name="verkOrdDatum" class="field" type="date" value="<?php echo $order['verkOrdDatum']; ?>">
         </div>
 
         <div class="form-group">
             <label for="verkOrdBestAantal">Aantal:</label>
-            <input id="verkOrdBestAantal" name="verkOrdBestAantal" class="update-field" type="number" value="<?php echo $order['verkOrdBestAantal']; ?>">
+            <input id="verkOrdBestAantal" name="verkOrdBestAantal" class="field" type="number" value="<?php echo $order['verkOrdBestAantal']; ?>">
         </div>
 
         <div class="form-group">
             <label for="verkOrdStatus">Status:</label>
-            <select id="verkOrdStatus" name="verkOrdStatus" class="update-field">
+            <select id="verkOrdStatus" name="verkOrdStatus" class="field">
                 <option value="Onderweg" <?php echo $order['verkOrdStatus'] == 'Onderweg' ? 'selected' : ''; ?>>Onderweg</option>
                 <option value="Geleverd" <?php echo $order['verkOrdStatus'] == 'Geleverd' ? 'selected' : ''; ?>>Geleverd</option>
                 <option value="Geannuleerd" <?php echo $order['verkOrdStatus'] == 'Geannuleerd' ? 'selected' : ''; ?>>Geannuleerd</option>

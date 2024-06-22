@@ -1,6 +1,4 @@
 <?php
-// insert.php
-
 require '../../vendor/autoload.php';
 
 use BasProject\classes\Klant;
@@ -13,11 +11,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$connection = new Connection();
 		$klant = new Klant($connection);
 
-		$klant->klantNaam = $_POST['klantnaam'];
-		$klant->klantEmail = $_POST['klantemail'];
-		$klant->klantAdres = $_POST['klantadres'];
-		$klant->klantPostcode = $_POST['klantpostcode'];
-		$klant->klantWoonplaats = $_POST['klantwoonplaats'];
+		$klant->klantNaam = $_POST['klantNaam'];
+		$klant->klantEmail = $_POST['klantEmail'];
+		$klant->klantAdres = $_POST['klantAdres'];
+		$klant->klantPostcode = $_POST['klantPostcode'];
+		$klant->klantWoonplaats = $_POST['klantWoonplaats'];
 
 		$errors = $klant->validateKlant();
 
@@ -46,17 +44,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
 	<?php include '../../public/index.html'; ?>
 
+	<h1 class="heading">Nieuwe klant</h1>
+
 	<?php foreach ($errors as $error) : ?>
 		<?php echo '<p class="error">' . $error; ?>
 	<?php endforeach; ?>
 
-	<h1 class="heading">Nieuwe klant</h1>
-	<form method="post" action="<?php echo $_SERVER["PHP_SELF"]; ?>">
-		<input class="field" type="text" name="klantnaam" placeholder="Naam">
-		<input class="field" type="text" name="klantemail" placeholder="Email">
-		<input class="field" type="text" name="klantadres" placeholder="Adres">
-		<input class="field" type="text" name="klantpostcode" placeholder="Postcode">
-		<input class="field" type="text" name="klantwoonplaats" placeholder="Woonplaats">
+	<form method="POST" action="<?php echo $_SERVER["PHP_SELF"]; ?>">
+		<div class="form-group">
+			<label for="klantNaam">Klant:</label>
+			<input id="klantNaam" class="field" type="text" name="klantNaam" placeholder="Klant">
+		</div>
+
+		<div class="form-group">
+			<label for="klantEmail">Email:</label>
+			<input id="klantEmail" class="field" type="text" name="klantEmail" placeholder="Email">
+		</div>
+
+		<div class="form-group">
+			<label for="klantAdres">Adres:</label>
+			<input id="klantAdres" class="field" type="text" name="klantAdres" placeholder="Adres">
+		</div>
+
+		<div class="form-group">
+			<label for="klantPostcode">Postcode:</label>
+			<input id="klantPostcode" class="field" type="text" name="klantPostcode" placeholder="Postcode">
+		</div>
+
+		<div class="form-group">
+			<label for="klantWoonPlaats">Woonplaats:</label>
+			<input id="klantWoonPlaats" class="field" type="text" name="klantWoonplaats" placeholder="Woonplaats">
+		</div>
+
 		<input class="submit" type='submit' name='submit' value='Submit'>
 	</form>
 </body>

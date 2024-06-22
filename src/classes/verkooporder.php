@@ -45,7 +45,7 @@ class Verkooporder
 
         if (
             empty($this->klantId) || empty($this->artId) || empty($this->verkOrdDatum) ||
-            empty($this->verkOrdBestAantal)
+            empty($this->verkOrdBestAantal || empty($this->verkOrdStatus))
         ) {
             $errors[] = "Fields cannot be empty";
         }

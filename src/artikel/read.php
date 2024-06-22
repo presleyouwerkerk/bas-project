@@ -1,6 +1,4 @@
 <?php
-// read.php
-
 require '../../vendor/autoload.php';
 
 use BasProject\classes\Artikel;
@@ -42,12 +40,12 @@ if (!empty($searchTerm)) {
         <thead>
             <tr>
                 <th class="cell">Artikel</th>
-                <th class="cell">Inkoop</th>
-                <th class="cell">Verkoop</th>
-                <th class="cell">Huidge voorraad</th>
+                <th class="cell">Inkoopprijs</th>
+                <th class="cell">Verkoopprijs</th>
+                <th class="cell">Huidige voorraad</th>
                 <th class="cell">Minimum voorraad</th>
                 <th class="cell">Maximum voorraad</th>
-                <th class="cell">Locatie</th>
+                <th class="cell">Magazijn Locatie</th>
                 <th class="cell"></th>
                 <th class="cell"></th>
             </tr>

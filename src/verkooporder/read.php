@@ -1,6 +1,4 @@
 <?php
-// read.php
-
 require '../../vendor/autoload.php';
 
 use BasProject\classes\Verkooporder;
