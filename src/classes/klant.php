@@ -76,6 +76,7 @@ class Klant
 			$pdo = $this->connection->getPdo();
 
 			$stmt = $pdo->prepare("SELECT * FROM klant WHERE klantNaam LIKE :query");
+			
 			$stmt->bindValue(':query', "%$searchTerm%");
 			$stmt->execute();
 
@@ -92,6 +93,7 @@ class Klant
 			$pdo = $this->connection->getPdo();
 
 			$query = "DELETE FROM klant WHERE klantId = :klantId";
+
 			$stmt = $pdo->prepare($query);
 			$stmt->bindValue(':klantId', $id);
 			$stmt->execute();
@@ -110,10 +112,10 @@ class Klant
 
 			$query = "UPDATE klant 
                       SET klantNaam = :klantnaam, 
-					  klantEmail = :klantemail, 
-                      klantAdres = :klantadres, 
-					  klantPostcode = :klantpostcode, 
-                      klantWoonplaats = :klantwoonplaats 
+					      klantEmail = :klantemail, 
+						  klantAdres = :klantadres, 
+						  klantPostcode = :klantpostcode, 
+						  klantWoonplaats = :klantwoonplaats 
                       WHERE klantId = :klantid";
 
 			$stmt = $pdo->prepare($query);
@@ -140,6 +142,7 @@ class Klant
 			$pdo = $this->connection->getPdo();
 
 			$query = "SELECT * FROM klant WHERE klantId = :klantId";
+
 			$stmt = $pdo->prepare($query);
 			$stmt->bindValue(':klantId', $klantId);
 			$stmt->execute();

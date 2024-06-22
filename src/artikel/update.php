@@ -16,7 +16,7 @@ if (isset($_GET['artId'])) {
     $artikel = $artikelInstance->getArtikelById($artId);
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $artId = $_POST['artId'];
     $artikelInstance->artOmschrijving = $_POST['artOmschrijving'];
     $artikelInstance->artInkoop = $_POST['artInkoop'];
@@ -30,7 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         header("Location: read.php");
         exit();
     } else {
-        $errors[] = "Er is een fout opgetreden bij het bijwerken van het artikel";
+        $errors[] = "Er is een fout opgetreden";
     }
 }
 ?>
@@ -46,25 +46,53 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 
 <body>
-    <?php
-    include '../../public/index.html';
+    <?php include '../../public/index.html'; ?>
 
-    if (!empty($errors)) {
-        echo '<p class="error">' . implode($errors) . '</p>';
-    }
-    ?>
+    <?php foreach ($errors as $error) : ?>
+        <?php echo '<p class="error">' . $error; ?>
+    <?php endforeach; ?>
 
     <h1 class="heading">Artikel bijwerken</h1>
-    <form class="form" method="POST" action="<?php echo $_SERVER["PHP_SELF"]; ?>">
+
+    <form method="POST" action="<?php echo $_SERVER["PHP_SELF"]; ?>">
         <input type="hidden" name="artId" value="<?php echo $artId; ?>">
-        <input class="field" type="text" name="artOmschrijving" placeholder="Omschrijving" value="<?php echo $artikel['artOmschrijving']; ?>">
-        <input class="field" type="number" step="0.01" name="artInkoop" placeholder="Inkoop" value="<?php echo $artikel['artInkoop']; ?>">
-        <input class="field" type="number" step="0.01" name="artVerkoop" placeholder="Verkoop" value="<?php echo $artikel['artVerkoop']; ?>">
-        <input class="field" type="number" name="artVoorraad" placeholder="Voorraad" value="<?php echo $artikel['artVoorraad']; ?>">
-        <input class="field" type="number" name="artMinVoorraad" placeholder="Min Voorraad" value="<?php echo $artikel['artMinVoorraad']; ?>">
-        <input class="field" type="number" name="artMaxVoorraad" placeholder="Max Voorraad" value="<?php echo $artikel['artMaxVoorraad']; ?>">
-        <input class="field" type="number" name="artLocatie" placeholder="Locatie" value="<?php echo $artikel['artLocatie']; ?>">
-        <input class="submit" type='submit' value='Submit'>
+
+        <div class="form-group">
+            <label for="artOmschrijving">Artikel:</label>
+            <input id="artOmschrijving" class="update-field" type="text" name="artOmschrijving" placeholder="Omschrijving" value="<?php echo $artikel['artOmschrijving']; ?>">
+        </div>
+
+        <div class="form-group">
+            <label for="artInkoop">Inkoopprijs:</label>
+            <input id="artInkoop" class="update-field" type="number" step="0.01" name="artInkoop" placeholder="Inkoop" value="<?php echo $artikel['artInkoop']; ?>">
+        </div>
+
+        <div class="form-group">
+            <label for="artVerkoop">Verkoopprijs:</label>
+            <input id="artVerkoop" class="update-field" type="number" step="0.01" name="artVerkoop" placeholder="Verkoop" value="<?php echo $artikel['artVerkoop']; ?>">
+        </div>
+
+        <div class="form-group">
+            <label for="artVoorraad">Voorraad:</label>
+            <input id="artVoorraad" class="update-field" type="number" name="artVoorraad" placeholder="Voorraad" value="<?php echo $artikel['artVoorraad']; ?>">
+        </div>
+
+        <div class="form-group">
+            <label for="artMinVoorraad">Minimum voorraad:</label>
+            <input id="artMinVoorraad" class="update-field" type="number" name="artMinVoorraad" placeholder="Min Voorraad" value="<?php echo $artikel['artMinVoorraad']; ?>">
+        </div>
+
+        <div class="form-group">
+            <label for="artMaxVoorraad">Maximum voorraad:</label>
+            <input id="artMaxVoorraad" class="update-field" type="number" name="artMaxVoorraad" placeholder="Max Voorraad" value="<?php echo $artikel['artMaxVoorraad']; ?>">
+        </div>
+
+        <div class="form-group">
+            <label for="artLocatie">Magazijn locatie:</label>
+            <input id="artLocatie" class="update-field" type="number" name="artLocatie" placeholder="Locatie" value="<?php echo $artikel['artLocatie']; ?>">
+        </div>
+
+        <input class="submit" type='submit' value='Bijwerken'>
     </form>
 
 </body>

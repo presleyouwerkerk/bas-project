@@ -83,6 +83,7 @@ class Verkooporder
             $pdo = $this->connection->getPdo();
 
             $query = "SELECT artId, artOmschrijving FROM artikel";
+
             $stmt = $pdo->prepare($query);
             $stmt->execute();
 
@@ -99,6 +100,7 @@ class Verkooporder
             $pdo = $this->connection->getPdo();
 
             $query = "SELECT klantId, klantNaam FROM klant";
+            
             $stmt = $pdo->prepare($query);
             $stmt->execute();
 
@@ -106,25 +108,6 @@ class Verkooporder
         } catch (\PDOException $e) {
             echo "Error: " . $e->getMessage();
             return [];
-        }
-    }
-
-    public function updateVerkooporderStatus($verkOrdId, $verkOrdStatus): bool
-    {
-        try {
-            $pdo = $this->connection->getPdo();
-
-            $query = "UPDATE verkooporder SET verkOrdStatus = :verkOrdStatus WHERE verkOrdId = :verkOrdId";
-
-            $stmt = $pdo->prepare($query);
-            $stmt->bindParam(':verkOrdStatus', $verkOrdStatus);
-            $stmt->bindParam(':verkOrdId', $verkOrdId);
-            $stmt->execute();
-
-            return true;
-        } catch (\PDOException $e) {
-            echo "Error: " . $e->getMessage();
-            return false;
         }
     }
 
@@ -173,61 +156,58 @@ class Verkooporder
         }
     }
 
-    public function updateVerkooporder(int $verkOrdId, int $klantId, int $artId): bool
+    public function updateVerkooporder(int $verkOrdId): bool
     {
         try {
             $pdo = $this->connection->getPdo();
-    
+
             $query = "UPDATE verkooporder 
                       SET klantId = :klantId, 
                           artId = :artId, 
                           verkOrdDatum = :verkOrdDatum, 
-                          verkOrdBestAantal = :verkOrdBestAantal 
+                          verkOrdBestAantal = :verkOrdBestAantal,
+                          verkOrdStatus = :verkOrdStatus
                       WHERE verkOrdId = :verkOrdId";
-    
+
             $stmt = $pdo->prepare($query);
-    
-            $stmt->bindValue(':klantId', $klantId);
-            $stmt->bindValue(':artId', $artId);
+
+            $stmt->bindValue(':klantId', $this->klantId);
+            $stmt->bindValue(':artId', $this->artId);
             $stmt->bindValue(':verkOrdDatum', $this->verkOrdDatum);
             $stmt->bindValue(':verkOrdBestAantal', $this->verkOrdBestAantal);
+            $stmt->bindValue(':verkOrdStatus', $this->verkOrdStatus);
             $stmt->bindValue(':verkOrdId', $verkOrdId);
-    
+
             $stmt->execute();
-    
+
             return true;
         } catch (\PDOException $e) {
             error_log("Error updating verkooporder: " . $e->getMessage());
             return false;
         }
-    }    
+    }
 
     public function getVerkooporderById(int $verkOrdId): array
     {
         try {
             $pdo = $this->connection->getPdo();
-    
-            $query = "SELECT verkooporder.verkOrdId, 
-                             verkooporder.klantId,
-                             verkooporder.artId, 
-                             verkooporder.verkOrdDatum, 
-                             verkooporder.verkOrdBestAantal, 
-                             verkooporder.verkOrdStatus,
+
+            $query = "SELECT verkooporder.*,
                              klant.klantNaam, 
                              artikel.artOmschrijving 
                       FROM verkooporder 
                       JOIN klant ON verkooporder.klantId = klant.klantId 
                       JOIN artikel ON verkooporder.artId = artikel.artId 
                       WHERE verkooporder.verkOrdId = :verkOrdId";
-    
+
             $stmt = $pdo->prepare($query);
             $stmt->bindValue(':verkOrdId', $verkOrdId);
             $stmt->execute();
-    
+
             return $stmt->fetch(\PDO::FETCH_ASSOC);
         } catch (\PDOException $e) {
             error_log("Error fetching verkooporder by ID: " . $e->getMessage());
             return [];
         }
-    }    
+    }
 }

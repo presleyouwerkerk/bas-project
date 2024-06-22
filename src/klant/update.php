@@ -14,7 +14,7 @@ if (isset($_GET['klantId'])) {
     $klant = $klantInstance->getKlantById($klantId);
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $klantId = $_POST['klantId'];
     $klantInstance->klantNaam = $_POST['klantNaam'];
     $klantInstance->klantEmail = $_POST['klantEmail'];
@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         header("Location: read.php");
         exit();
     } else {
-        $errors[] = "Er is een fout opgetreden bij het bijwerken van de klantgegevens";
+        $errors[] = "Er is een fout opgetreden";
     }
 }
 ?>
@@ -42,23 +42,43 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 
 <body>
-    <?php
-    include '../../public/index.html';
+    <?php include '../../public/index.html'; ?>
 
-    if (!empty($errors)) {
-        echo '<p class="error">' . implode($errors) . '</p>';
-    }
-    ?>
+    <?php foreach ($errors as $error) : ?>
+        <?php echo '<p class="error">' . $error; ?>
+    <?php endforeach; ?>
 
     <h1 class="heading">Klant bijwerken</h1>
-    <form class="form" method="POST" action="<?php echo $_SERVER["PHP_SELF"]; ?>">
+
+    <form method="POST" action="<?php echo $_SERVER["PHP_SELF"]; ?>">
         <input type="hidden" name="klantId" value="<?php echo $klantId; ?>">
-        <input class="field" type="text" name="klantNaam" placeholder="Naam" value="<?php echo $klant['klantNaam']; ?>">
-        <input class="field" type="text" name="klantEmail" placeholder="Email" value="<?php echo $klant['klantEmail']; ?>">
-        <input class="field" type="text" name="klantAdres" placeholder="Adres" value="<?php echo $klant['klantAdres']; ?>">
-        <input class="field" type="text" name="klantPostcode" placeholder="Postcode" value="<?php echo $klant['klantPostcode']; ?>">
-        <input class="field" type="text" name="klantWoonplaats" placeholder="Woonplaats" value="<?php echo $klant['klantWoonplaats']; ?>">
-        <input class="submit" type='submit' value='Submit'>
+
+        <div class="form-group">
+            <label for="klantNaam">Klant:</label>
+            <input class="update-field" id="klantNaam" class="field" type="text" name="klantNaam" placeholder="Naam" value="<?php echo $klant['klantNaam']; ?>">
+        </div>
+
+        <div class="form-group">
+            <label for="klantEmail">Email:</label>
+            <input class="update-field" id="klantEmail" class="field" type="text" name="klantEmail" placeholder="Email" value="<?php echo $klant['klantEmail']; ?>">
+        </div>
+
+        <div class="form-group">
+            <label for="klantAdres">Adres:</label>
+            <input class="update-field" id="klantAdres" class="field" type="text" name="klantAdres" placeholder="Adres" value="<?php echo $klant['klantAdres']; ?>">
+        </div>
+
+        <div class="form-group">
+            <label for="klantPostcode">Postcode:</label>
+            <input class="update-field" id="klantPostcode" class="field" type="text" name="klantPostcode" placeholder="Postcode" value="<?php echo $klant['klantPostcode']; ?>">
+        </div>
+
+        <div class="form-group">
+            <label for="klantWoonPlaats">Woonplaats:</label>
+            <input class="update-field" id="klantWoonPlaats" class="field" type="text" name="klantWoonplaats" placeholder="Woonplaats" value="<?php echo $klant['klantWoonplaats']; ?>">
+        </div>
+
+        <input class="submit" type='submit' value='Bijwerken'>
     </form>
 
 </body>

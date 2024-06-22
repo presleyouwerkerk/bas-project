@@ -9,11 +9,6 @@ use BasProject\classes\Connection;
 $connection = new Connection();
 $klantInstance = new Klant($connection);
 
-if (isset($_POST['delete'])) {
-    $klantId = $_POST['klantId'];
-    $klantInstance->deleteKlant($klantId);
-}
-
 $searchTerm = isset($_GET['search']) ? $_GET['search'] : '';
 
 if (!empty($searchTerm)) {
@@ -71,7 +66,7 @@ if (!empty($searchTerm)) {
                             </form>
                         </td>
                         <td class="cell">
-                            <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+                            <form action="delete.php" method="POST">
                                 <input type="hidden" name="klantId" value="<?php echo $klant['klantId']; ?>">
                                 <input type="submit" name="delete" value="Verwijder" class="button">
                             </form>

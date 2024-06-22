@@ -46,16 +46,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 
 <body>
-    <?php 
-    include '../../public/index.html'; 
-    
-    if (!empty($errors)) {
-        echo '<p class="error">' . implode($errors) . '</p>';
-    }
-    ?>
+    <?php include '../../public/index.html'; ?>
+
+    <?php foreach ($errors as $error) : ?>
+        <?php echo '<p class="error">' . $error; ?>
+    <?php endforeach; ?>
 
     <h1 class="heading">Nieuwe verkooporder</h1>
-    <form method="post">
+
+    <form method="post" action="<?php echo $_SERVER["PHP_SELF"]; ?>">
         <select class="field" name="klantId">
             <option value="" disabled selected hidden>Klant</option>
             <?php foreach ($klanten as $klant) : ?>
@@ -71,7 +70,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </select>
 
         <input class="field" type="number" name="verkOrdBestAantal" placeholder="Aantal">
+
         <input class="field" type="date" name="verkOrdDatum">
+        
         <button class="submit" type="submit" name="submit">Submit</button>
     </form>
 </body>

@@ -44,16 +44,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 
 <body>
-	<?php 
-	include '../../public/index.html'; 
-	
-	if (!empty($errors)) {
-		echo '<p class="error">' . implode($errors) . '</p>';
-	}
-	?>
+	<?php include '../../public/index.html'; ?>
+
+	<?php foreach ($errors as $error) : ?>
+		<?php echo '<p class="error">' . $error; ?>
+	<?php endforeach; ?>
 
 	<h1 class="heading">Nieuwe klant</h1>
-	<form method="post">
+	<form method="post" action="<?php echo $_SERVER["PHP_SELF"]; ?>">
 		<input class="field" type="text" name="klantnaam" placeholder="Naam">
 		<input class="field" type="text" name="klantemail" placeholder="Email">
 		<input class="field" type="text" name="klantadres" placeholder="Adres">

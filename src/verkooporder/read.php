@@ -9,11 +9,6 @@ use BasProject\classes\Connection;
 $connection = new Connection();
 $verkooporder = new Verkooporder($connection);
 
-if (isset($_POST['delete'])) {
-    $verkOrdId = $_POST['verkOrdId'];
-    $verkooporder->deleteVerkooporder($verkOrdId);
-}
-
 $searchTerm = isset($_GET['search']) ? $_GET['search'] : '';
 
 if (!empty($searchTerm)) {
@@ -63,16 +58,7 @@ if (!empty($searchTerm)) {
                         <td class="cell"><?php echo $order['artOmschrijving']; ?></td>
                         <td class="cell"><?php echo $order['verkOrdDatum']; ?></td>
                         <td class="cell"><?php echo $order['verkOrdBestAantal']; ?></td>
-                        <td class="cell">
-                            <form action="orderstatus.php" method="POST">
-                                <input type="hidden" name="verkOrdId" value="<?php echo $order['verkOrdId']; ?>">
-                                <select class="dropdown" name="verkOrdStatus" onchange="this.form.submit()">
-                                    <option value="Onderweg" <?php echo $order['verkOrdStatus'] == 'Onderweg' ? 'selected' : ''; ?>>Onderweg</option>
-                                    <option value="Geleverd" <?php echo $order['verkOrdStatus'] == 'Geleverd' ? 'selected' : ''; ?>>Geleverd</option>
-                                    <option value="Geannuleerd" <?php echo $order['verkOrdStatus'] == 'Geannuleerd' ? 'selected' : ''; ?>>Geannuleerd</option>
-                                </select>
-                            </form>
-                        </td>
+                        <td class="cell"><?php echo $order['verkOrdStatus']; ?></td>
                         <td class="cell">
                             <form action="update.php" method="GET">
                                 <input type="hidden" name="verkOrdId" value="<?php echo $order['verkOrdId']; ?>">
@@ -80,7 +66,7 @@ if (!empty($searchTerm)) {
                             </form>
                         </td>
                         <td class="cell">
-                            <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+                            <form action="delete.php" method="POST">
                                 <input type="hidden" name="verkOrdId" value="<?php echo $order['verkOrdId']; ?>">
                                 <input type="submit" name="delete" value="Verwijder" class="button">
                             </form>

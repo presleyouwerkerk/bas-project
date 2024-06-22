@@ -114,12 +114,12 @@ class Artikel
 
 			$query = "UPDATE artikel 
                       SET artOmschrijving = :artOmschrijving, 
-					  artInkoop = :artInkoop, 
-                      artVerkoop = :artVerkoop, 
-					  artVoorraad = :artVoorraad, 
-                      artMinVoorraad = :artMinVoorraad, 
-                      artMaxVoorraad = :artMaxVoorraad, 
-                      artLocatie = :artLocatie
+					      artInkoop = :artInkoop, 
+                          artVerkoop = :artVerkoop, 
+					      artVoorraad = :artVoorraad, 
+                          artMinVoorraad = :artMinVoorraad, 
+                          artMaxVoorraad = :artMaxVoorraad, 
+                          artLocatie = :artLocatie
                       WHERE artId = :artId";
 
 			$stmt = $pdo->prepare($query);
