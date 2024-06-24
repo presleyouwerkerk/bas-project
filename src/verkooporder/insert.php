@@ -39,52 +39,54 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRUD Verkooporders</title>
+    <title>Nieuwe verkooporder</title>
     <link rel="stylesheet" href="../../public/css/style.css">
 </head>
 
 <body>
-    <?php include '../../public/index.html'; ?>
+    <?php include '../../public/nav.html'; ?>
 
-    <h1 class="heading">Nieuwe verkooporder</h1>
+    <div class="main-content">
+        <h1 class="heading">Nieuwe verkooporder</h1>
 
-    <?php foreach ($errors as $error) : ?>
-        <?php echo '<p class="error">' . $error; ?>
-    <?php endforeach; ?>
+        <?php foreach ($errors as $error) : ?>
+            <?php echo '<p class="error">' . $error; ?>
+        <?php endforeach; ?>
 
-    <form method="POST" action="<?php echo $_SERVER["PHP_SELF"]; ?>">
-        <div class="form-group">
-            <label for="klantId">Klant:</label>
-            <select id="klantId" class="field" name="klantId">
-                <option value="" disabled selected hidden>Klant</option>
-                <?php foreach ($klanten as $klant) : ?>
-                    <option value="<?php echo $klant['klantId']; ?>"><?php echo $klant['klantNaam']; ?></option>
-                <?php endforeach; ?>
-            </select>
-        </div>
+        <form method="POST" action="<?php echo $_SERVER["PHP_SELF"]; ?>">
+            <div class="form-group">
+                <label for="klantId">Klant:</label>
+                <select id="klantId" class="field" name="klantId">
+                    <option value="" disabled selected hidden>Klant</option>
+                    <?php foreach ($klanten as $klant) : ?>
+                        <option value="<?php echo $klant['klantId']; ?>"><?php echo $klant['klantNaam']; ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
 
-        <div class="form-group">
-            <label for="artId">Artikel:</label>
-            <select id="artId" class="field" name="artId">
-                <option value="" disabled selected hidden>Artikel</option>
-                <?php foreach ($artikelen as $artikel) : ?>
-                    <option value="<?php echo $artikel['artId']; ?>"><?php echo $artikel['artOmschrijving']; ?></option>
-                <?php endforeach; ?>
-            </select>
-        </div>
+            <div class="form-group">
+                <label for="artId">Artikel:</label>
+                <select id="artId" class="field" name="artId">
+                    <option value="" disabled selected hidden>Artikel</option>
+                    <?php foreach ($artikelen as $artikel) : ?>
+                        <option value="<?php echo $artikel['artId']; ?>"><?php echo $artikel['artOmschrijving']; ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
 
-        <div class="form-group">
-            <label for="verkOrdBestAantal">Aantal:</label>
-            <input id="verkOrdbestAantal" class="field" type="number" name="verkOrdBestAantal" placeholder="Aantal">
-        </div>
+            <div class="form-group">
+                <label for="verkOrdBestAantal">Aantal:</label>
+                <input id="verkOrdbestAantal" class="field" type="number" name="verkOrdBestAantal" placeholder="Aantal">
+            </div>
 
-        <div class="form-group">
-            <label for="verkOrdDatum">Datum:</label>
-            <input id="verkOrdDatum" class="field" type="date" name="verkOrdDatum">
-        </div>
+            <div class="form-group">
+                <label for="verkOrdDatum">Datum:</label>
+                <input id="verkOrdDatum" class="field" type="date" name="verkOrdDatum">
+            </div>
 
-        <input class="submit" type="submit" value="Submit">
-    </form>
+            <input class="submit" type="submit" value="Submit">
+        </form>
+    </div>
 </body>
 
 </html>

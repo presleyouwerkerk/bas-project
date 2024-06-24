@@ -22,34 +22,33 @@ if (!empty($searchTerm)) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRUD klant</title>
+    <title>Klanten</title>
     <link rel="stylesheet" href="../../public/css/style.css">
 </head>
 
 <body>
-    <?php include '../../public/index.html'; ?>
+    <?php include '../../public/nav.html'; ?>
 
-    <h1 class="heading">CRUD Klant</h1>
+    <div class="main-content">
+        <h1 class="heading">Klanten</h1>
 
-    <form class="search-form" method="GET" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-        <input class="search-field" type="text" name="search" placeholder="Zoek">
-        <input class="search-button" type="submit" value="">
-    </form>
-
-    <table class="table">
-        <thead>
+        <table>
             <tr>
-                <th class="cell">Klant</th>
-                <th class="cell">Email</th>
-                <th class="cell">Adres</th>
-                <th class="cell">Postcode</th>
-                <th class="cell">Woonplaats</th>
-                <th class="cell"></th>
-                <th class="cell"></th>
+                <th class="cell" colspan="7">
+                    <form method="GET" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+                        <input class="search-field" type="text" name="search" placeholder="Zoek">
+                        <input class="search-button" type="submit" value="">
+                    </form>
+                </th>
             </tr>
-        </thead>
-        <tbody>
             <?php if (!empty($klanten)) : ?>
+                <tr>
+                    <th class="cell">Klant</th>
+                    <th class="cell">Email</th>
+                    <th class="cell">Adres</th>
+                    <th class="cell">Postcode</th>
+                    <th class="cell" colspan="3">Woonplaats</th>
+                </tr>
                 <?php foreach ($klanten as $klant) : ?>
                     <tr>
                         <td class="cell"><?php echo $klant['klantNaam']; ?></td>
@@ -73,12 +72,13 @@ if (!empty($searchTerm)) {
                 <?php endforeach; ?>
             <?php else : ?>
                 <tr>
-                    <td class="cell" colspan="6">Geen klant gevonden</td>
+                    <td class="cell">Geen klant gevonden</td>
                 </tr>
             <?php endif; ?>
-        </tbody>
-    </table>
-    <a href="insert.php" class="link">Nieuwe klant</a>
+        </table>
+
+        <a class="link" href="insert.php">Nieuwe klant</a>
+    </div>
 </body>
 
 </html>

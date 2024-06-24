@@ -6,60 +6,65 @@
 
 body {
     font-family: Arial, sans-serif;
+    font-size: 16px;
 }
 
-.navbar {
+nav {
     background-color: #e42626;
-    padding: 10px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.navbar-left {
-    list-style-type: none;
-}
-
-.navbar-left li {
-    display: inline-block;
-    margin-right: 30px;
-}
-
-.navbar-left li:first-child {
-    margin-right: auto;
-}
-
-.navbar-left li a {
-    color: #fff;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-.navbar-right {
-    list-style-type: none;
+    padding: 10px 0 10px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.navbar-right li {
-    margin-right: 30px;
+nav ul {
+    display: flex;
+    align-items: center;
+    list-style-type: none;
 }
 
-.navbar-right li:last-child {
-    margin-right: 0;
+nav ul li {
+    margin-left: 40px;
 }
 
-.navbar-right li a {
-    color: #fff;
+nav ul li:first-child {
+    font-size: 30px;
+    color: white;
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+}
+
+nav ul li a {
+    color: white;
     text-decoration: none;
     font-weight: bold;
-    border-bottom: 2px solid transparent;
 }
 
-.table {
+.main-content {
+    width: fit-content;
+    margin: 40px auto 0 auto;
+}
+
+.heading {
+    margin-bottom: 20px;
+}
+
+.search-field {
+    font-size: 16px;
+    border: none;
+    background-color: transparent;
+}
+
+.search-field:focus {
+    outline: none;
+}
+
+.search-button {
+    display: none;
+}
+
+table {
     border-collapse: collapse;
-    margin-left: 20px;
 }
 
 .cell {
@@ -68,23 +73,17 @@ body {
     text-align: left;
 }
 
-.table tr th {
-    border-top: 1px solid black;
-    padding-top: 10px;
-}
-
-.heading {
-    margin-top: 20px;
-    margin-bottom: 20px;
-    margin-left: 20px;
-    width: fit-content;
+.button {
+    font-size: 16px;
+    border: none;
+    background-color: transparent;
+    color: black;
+    cursor: pointer;
 }
 
 .link {
-    display: block;
-    width: fit-content;
+    display: inline-block;
     margin-top: 20px;
-    margin-left: 20px;
     color: white;
     text-decoration: none;
     border: none;
@@ -93,10 +92,28 @@ body {
     background-color: #e42626;
 }
 
+.error {
+    color: #ffffff;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    background-color: #e42626;
+    width: 200px;
+    text-align: center;
+    margin-left: 100px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 300px;
+}
+
 .field {
     border: 1px solid white;
     font-size: 16px;
-    font-family: Arial, sans-serif;
     background-color: #fff;
     border-color: black;
     border-radius: 8px;
@@ -105,76 +122,13 @@ body {
     padding: 10px;
 }
 
-.form-group {
-    margin-bottom: 20px;
-    margin-left: 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 300px;
-}
-
-form {
-    width: fit-content;
-    position: relative;
-}
-
 .submit {
-    display: block;
-    margin-left: 20px;
-    border: none;
-    box-sizing: border-box;
-    font-size: 16px;
-    font-family: Arial, sans-serif;
-    background-color: #e42626;
-    border-radius: 8px;
-    width: 200px;
-    text-align: center;
-    padding: 10px;
     color: white;
-    cursor: pointer;
-    position: absolute;
-    right: 0;
-}
-
-p.error {
-    display: inline-block;
-    color: #ffffff;
-    padding: 10px;
-    border-radius: 8px;
-    margin-left: 120px;
-    margin-bottom: 20px;
+    border: none;
     background-color: #e42626;
-    width: 200px;
-    text-align: center;
-}
-
-.search-form {
-    margin-left: 20px;
-}
-
-.search-field {
-    font-size: 16px;
-    font-family: Arial, sans-serif;
-    padding: 8px;
-    border: none;
     border-radius: 8px;
-    width: auto;
-    margin-right: 5px;
-    vertical-align: middle;
-    outline: none;
-    background-color: transparent;
-}
-
-.search-button {
-    display: none;
-}
-
-.button {
+    width: 200px;
+    padding: 10px;
     font-size: 16px;
-    font-family: Arial, sans-serif;
-    border: none;
-    background-color: transparent;
-    color: black;
-    cursor: pointer;
+    margin-left: 100px;
 }

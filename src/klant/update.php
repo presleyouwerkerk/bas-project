@@ -42,45 +42,46 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 </head>
 
 <body>
-    <?php include '../../public/index.html'; ?>
+    <?php include '../../public/nav.html'; ?>
 
-    <?php foreach ($errors as $error) : ?>
-        <?php echo '<p class="error">' . $error; ?>
-    <?php endforeach; ?>
+    <div class="main-content">
+        <h1 class="heading">Klant bijwerken</h1>
 
-    <h1 class="heading">Klant bijwerken</h1>
+        <?php foreach ($errors as $error) : ?>
+            <?php echo '<p class="error">' . $error; ?>
+        <?php endforeach; ?>
 
-    <form method="POST" action="<?php echo $_SERVER["PHP_SELF"]; ?>">
-        <input type="hidden" name="klantId" value="<?php echo $klantId; ?>">
+        <form method="POST" action="<?php echo $_SERVER["PHP_SELF"]; ?>">
+            <input type="hidden" name="klantId" value="<?php echo $klantId; ?>">
 
-        <div class="form-group">
-            <label for="klantNaam">Klant:</label>
-            <input id="klantNaam" class="field" type="text" name="klantNaam" placeholder="Naam" value="<?php echo $klant['klantNaam']; ?>">
-        </div>
+            <div class="form-group">
+                <label for="klantNaam">Klant:</label>
+                <input id="klantNaam" class="field" type="text" name="klantNaam" placeholder="Naam" value="<?php echo $klant['klantNaam']; ?>">
+            </div>
 
-        <div class="form-group">
-            <label for="klantEmail">Email:</label>
-            <input id="klantEmail" class="field" type="text" name="klantEmail" placeholder="Email" value="<?php echo $klant['klantEmail']; ?>">
-        </div>
+            <div class="form-group">
+                <label for="klantEmail">Email:</label>
+                <input id="klantEmail" class="field" type="text" name="klantEmail" placeholder="Email" value="<?php echo $klant['klantEmail']; ?>">
+            </div>
 
-        <div class="form-group">
-            <label for="klantAdres">Adres:</label>
-            <input id="klantAdres" class="field" type="text" name="klantAdres" placeholder="Adres" value="<?php echo $klant['klantAdres']; ?>">
-        </div>
+            <div class="form-group">
+                <label for="klantAdres">Adres:</label>
+                <input id="klantAdres" class="field" type="text" name="klantAdres" placeholder="Adres" value="<?php echo $klant['klantAdres']; ?>">
+            </div>
 
-        <div class="form-group">
-            <label for="klantPostcode">Postcode:</label>
-            <input id="klantPostcode" class="field" type="text" name="klantPostcode" placeholder="Postcode" value="<?php echo $klant['klantPostcode']; ?>">
-        </div>
+            <div class="form-group">
+                <label for="klantPostcode">Postcode:</label>
+                <input id="klantPostcode" class="field" type="text" name="klantPostcode" placeholder="Postcode" value="<?php echo $klant['klantPostcode']; ?>">
+            </div>
 
-        <div class="form-group">
-            <label for="klantWoonPlaats">Woonplaats:</label>
-            <input id="klantWoonPlaats" class="field" type="text" name="klantWoonplaats" placeholder="Woonplaats" value="<?php echo $klant['klantWoonplaats']; ?>">
-        </div>
+            <div class="form-group">
+                <label for="klantWoonPlaats">Woonplaats:</label>
+                <input id="klantWoonPlaats" class="field" type="text" name="klantWoonplaats" placeholder="Woonplaats" value="<?php echo $klant['klantWoonplaats']; ?>">
+            </div>
 
-        <input class="submit" type='submit' value='Bijwerken'>
-    </form>
-
+            <input class="submit" type='submit' value='Bijwerken'>
+        </form>
+    </div>
 </body>
 
 </html>

@@ -22,34 +22,33 @@ if (!empty($searchTerm)) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRUD Verkooporders</title>
+    <title>Verkooporders</title>
     <link rel="stylesheet" href="../../public/css/style.css">
 </head>
 
 <body>
-    <?php include '../../public/index.html'; ?>
+    <?php include '../../public/nav.html'; ?>
 
-    <h1 class="heading">CRUD Verkooporders</h1>
+    <div class="main-content">
+        <h1 class="heading">Verkooporders</h1>
 
-    <form class="search-form" method="GET" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-        <input class="search-field" type="text" name="search" placeholder="Zoek">
-        <input class="search-button" type="submit" value="">
-    </form>
-
-    <table class="table">
-        <thead>
+        <table class="table">
             <tr>
-                <th class="cell">Klant</th>
-                <th class="cell">Artikel</th>
-                <th class="cell">Datum</th>
-                <th class="cell">Aantal</th>
-                <th class="cell">Status</th>
-                <th class="cell"></th>
-                <th class="cell"></th>
+                <th class="cell" colspan="7">
+                    <form class="search-form" method="GET" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+                        <input class="search-field" type="text" name="search" placeholder="Zoek">
+                        <input class="search-button" type="submit" value="">
+                    </form>
+                </th>
             </tr>
-        </thead>
-        <tbody>
             <?php if (!empty($verkooporders)) : ?>
+                <tr>
+                    <th class="cell">Klant</th>
+                    <th class="cell">Artikel</th>
+                    <th class="cell">Datum</th>
+                    <th class="cell">Aantal</th>
+                    <th class="cell" colspan="3">Status</th>
+                </tr>
                 <?php foreach ($verkooporders as $order) : ?>
                     <tr>
                         <td class="cell"><?php echo $order['klantNaam']; ?></td>
@@ -73,12 +72,13 @@ if (!empty($searchTerm)) {
                 <?php endforeach; ?>
             <?php else : ?>
                 <tr>
-                    <td class="cell" colspan="6">Geen verkooporders gevonden</td>
+                    <td class="cell">Geen verkooporders gevonden</td>
                 </tr>
             <?php endif; ?>
-        </tbody>
-    </table>
-    <a href="insert.php" class="link">Nieuwe verkooporder</a>
+        </table>
+
+        <a href="insert.php" class="link">Nieuwe verkooporder</a>
+    </div>
 </body>
 
 </html>

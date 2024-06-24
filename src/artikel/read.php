@@ -22,36 +22,35 @@ if (!empty($searchTerm)) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRUD Artikel</title>
+    <title>Artikelen</title>
     <link rel="stylesheet" href="../../public/css/style.css">
 </head>
 
 <body>
-    <?php include '../../public/index.html'; ?>
+    <?php include '../../public/nav.html'; ?>
 
-    <h1 class="heading">CRUD Artikel</h1>
+    <div class="main-content">
+        <h1 class="heading">Artikelen</h1>
 
-    <form class="search-form" method="GET" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-        <input class="search-field" type="text" name="search" placeholder="Zoek">
-        <input class="search-button" type="submit" value="">
-    </form>
-
-    <table class="table">
-        <thead>
+        <table>
             <tr>
-                <th class="cell">Artikel</th>
-                <th class="cell">Inkoopprijs</th>
-                <th class="cell">Verkoopprijs</th>
-                <th class="cell">Huidige voorraad</th>
-                <th class="cell">Minimum voorraad</th>
-                <th class="cell">Maximum voorraad</th>
-                <th class="cell">Magazijn Locatie</th>
-                <th class="cell"></th>
-                <th class="cell"></th>
+                <th class="cell" colspan="9">
+                    <form class="search-form" method="GET" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+                        <input class="search-field" type="text" name="search" placeholder="Zoek">
+                        <input class="search-button" type="submit" value="">
+                    </form>
+                </th>
             </tr>
-        </thead>
-        <tbody>
             <?php if (!empty($artikelen)) : ?>
+                <tr>
+                    <th class="cell">Artikel</th>
+                    <th class="cell">Inkoopprijs</th>
+                    <th class="cell">Verkoopprijs</th>
+                    <th class="cell">Huidige voorraad</th>
+                    <th class="cell">Minimum voorraad</th>
+                    <th class="cell">Maximum voorraad</th>
+                    <th class="cell" colspan="3">Magazijn Locatie</th>
+                </tr>
                 <?php foreach ($artikelen as $artikel) : ?>
                     <tr>
                         <td class="cell"><?php echo $artikel['artOmschrijving']; ?></td>
@@ -77,12 +76,13 @@ if (!empty($searchTerm)) {
                 <?php endforeach; ?>
             <?php else : ?>
                 <tr>
-                    <td class="cell" colspan="8">Geen artikelen gevonden</td>
+                    <td class="cell">Geen artikelen gevonden</td>
                 </tr>
             <?php endif; ?>
-        </tbody>
-    </table>
-    <a href="insert.php" class="link">Nieuw artikel</a>
+        </table>
+
+        <a href="insert.php" class="link">Nieuw artikel</a>
+    </div>
 </body>
 
 </html>
