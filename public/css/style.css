@@ -73,12 +73,24 @@ table {
     text-align: left;
 }
 
-.button {
+.update-button {
     font-size: 16px;
+    padding: 10px;
     border: none;
-    background-color: transparent;
-    color: black;
+    background-color: #33b249;
+    color: white;
     cursor: pointer;
+    border-radius: 8px;
+}
+
+.delete-button {
+    font-size: 16px;
+    padding: 10px;
+    border: none;
+    background-color: #ED0800;
+    color: white;
+    cursor: pointer;
+    border-radius: 8px;
 }
 
 .link {

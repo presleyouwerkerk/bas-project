@@ -50,7 +50,7 @@ if (!empty($searchTerm)) {
                     <th class="cell">Huidige voorraad</th>
                     <th class="cell">Minimum voorraad</th>
                     <th class="cell">Maximum voorraad</th>
-                    <th class="cell" colspan="3">Magazijn Locatie</th>
+                    <th class="cell" colspan="3">Magazijn locatie</th>
                 </tr>
                 <?php foreach ($artikelen as $artikel) : ?>
                     <tr>
@@ -64,13 +64,13 @@ if (!empty($searchTerm)) {
                         <td class="cell">
                             <form action="update.php" method="GET">
                                 <input type="hidden" name="artId" value="<?php echo $artikel['artId'] ?>">
-                                <input type="submit" value="Bijwerken" class="button">
+                                <input type="submit" value="Bijwerken" class="update-button">
                             </form>
                         </td>
                         <td class="cell">
                             <form action="delete.php" method="POST">
                                 <input type="hidden" name="artId" value="<?php echo $artikel['artId']; ?>">
-                                <input type="submit" name="delete" value="Verwijder" class="button">
+                                <input type="submit" name="delete" value="Verwijder" class="delete-button">
                             </form>
                         </td>
                     </tr>

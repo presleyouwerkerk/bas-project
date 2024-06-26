@@ -60,13 +60,13 @@ if (!empty($searchTerm)) {
                         <td class="cell">
                             <form action="update.php" method="GET">
                                 <input type="hidden" name="klantId" value="<?php echo $klant['klantId']; ?>">
-                                <input type="submit" value="Bijwerken" class="button">
+                                <input type="submit" value="Bijwerken" class="update-button">
                             </form>
                         </td>
                         <td class="cell">
                             <form action="delete.php" method="POST">
                                 <input type="hidden" name="klantId" value="<?php echo $klant['klantId']; ?>">
-                                <input type="submit" name="delete" value="Verwijder" class="button">
+                                <input type="submit" name="delete" value="Verwijder" class="delete-button">
                             </form>
                         </td>
                     </tr>
