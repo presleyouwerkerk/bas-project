@@ -1,5 +1,4 @@
 <?php
-// AcceptanceTest.php
 
 use PHPUnit\Framework\TestCase;
 use BasProject\classes\Klant;
@@ -11,6 +10,7 @@ use BasProject\classes\Connection;
 #[\PHPUnit\Framework\Attributes\CoversClass(Artikel::class)]
 #[\PHPUnit\Framework\Attributes\CoversClass(Verkooporder::class)]
 #[\PHPUnit\Framework\Attributes\CoversClass(Connection::class)]
+
 class AcceptanceTest extends TestCase
 {
     private $klant;

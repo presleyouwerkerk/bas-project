@@ -1,5 +1,4 @@
 <?php
-// verkooporder.php
 
 namespace BasProject\classes;
 
@@ -156,7 +155,7 @@ class Verkooporder
         }
     }
 
-    public function updateVerkooporder(int $verkOrdId): bool
+    public function updateVerkooporder(int $id): bool
     {
         try {
             $pdo = $this->connection->getPdo();
@@ -176,7 +175,7 @@ class Verkooporder
             $stmt->bindValue(':verkOrdDatum', $this->verkOrdDatum);
             $stmt->bindValue(':verkOrdBestAantal', $this->verkOrdBestAantal);
             $stmt->bindValue(':verkOrdStatus', $this->verkOrdStatus);
-            $stmt->bindValue(':verkOrdId', $verkOrdId);
+            $stmt->bindValue(':verkOrdId', $id);
 
             $stmt->execute();
 
@@ -187,7 +186,7 @@ class Verkooporder
         }
     }
 
-    public function getVerkooporderById(int $verkOrdId): array
+    public function getVerkooporderById(int $id): array
     {
         try {
             $pdo = $this->connection->getPdo();
@@ -201,7 +200,7 @@ class Verkooporder
                       WHERE verkooporder.verkOrdId = :verkOrdId";
 
             $stmt = $pdo->prepare($query);
-            $stmt->bindValue(':verkOrdId', $verkOrdId);
+            $stmt->bindValue(':verkOrdId', $id);
             $stmt->execute();
 
             return $stmt->fetch(\PDO::FETCH_ASSOC);

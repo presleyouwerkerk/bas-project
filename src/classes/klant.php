@@ -1,5 +1,4 @@
 <?php
-// klant.php
 
 namespace BasProject\classes;
 
@@ -105,7 +104,7 @@ class Klant
 		}
 	}
 
-	public function updateKlant(int $klantId): bool
+	public function updateKlant(int $id): bool
 	{
 		try {
 			$pdo = $this->connection->getPdo();
@@ -125,7 +124,7 @@ class Klant
 			$stmt->bindValue(':klantadres', $this->klantAdres);
 			$stmt->bindValue(':klantpostcode', $this->klantPostcode);
 			$stmt->bindValue(':klantwoonplaats', $this->klantWoonplaats);
-			$stmt->bindValue(':klantid', $klantId);
+			$stmt->bindValue(':klantid', $id);
 
 			$stmt->execute();
 
@@ -136,7 +135,7 @@ class Klant
 		}
 	}
 
-	public function getKlantById(int $klantId): array
+	public function getKlantById(int $id): array
 	{
 		try {
 			$pdo = $this->connection->getPdo();
@@ -144,7 +143,7 @@ class Klant
 			$query = "SELECT * FROM klant WHERE klantId = :klantId";
 
 			$stmt = $pdo->prepare($query);
-			$stmt->bindValue(':klantId', $klantId);
+			$stmt->bindValue(':klantId', $id);
 			$stmt->execute();
 
 			$klant = $stmt->fetch(\PDO::FETCH_ASSOC);

@@ -1,5 +1,4 @@
 <?php
-// artikel.php
 
 namespace BasProject\classes;
 
@@ -107,7 +106,7 @@ class Artikel
         }
     }
 
-    public function updateArtikel(int $artId): bool
+    public function updateArtikel(int $id): bool
 	{
 		try {
 			$pdo = $this->connection->getPdo();
@@ -131,7 +130,7 @@ class Artikel
 			$stmt->bindValue(':artMinVoorraad', $this->artMinVoorraad);
             $stmt->bindValue(':artMaxVoorraad', $this->artMaxVoorraad);
             $stmt->bindValue(':artLocatie', $this->artLocatie);
-			$stmt->bindValue(':artId', $artId);
+			$stmt->bindValue(':artId', $id);
 
 			$stmt->execute();
 
@@ -142,14 +141,14 @@ class Artikel
 		}
 	}
 
-	public function getArtikelById(int $artId): array
+	public function getArtikelById(int $id): array
 	{
 		try {
 			$pdo = $this->connection->getPdo();
 
 			$query = "SELECT * FROM artikel WHERE artId = :artId";
 			$stmt = $pdo->prepare($query);
-			$stmt->bindValue(':artId', $artId);
+			$stmt->bindValue(':artId', $id);
 			$stmt->execute();
 
 			$artikel = $stmt->fetch(\PDO::FETCH_ASSOC);
