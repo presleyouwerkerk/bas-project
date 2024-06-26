@@ -48,7 +48,9 @@ if (!empty($searchTerm)) {
                     <th class="cell">Email</th>
                     <th class="cell">Adres</th>
                     <th class="cell">Postcode</th>
-                    <th class="cell" colspan="3">Woonplaats</th>
+                    <th class="cell">Woonplaats</th>
+                    <th class="cell"></th>
+                    <th class="cell"></th>
                 </tr>
                 <?php foreach ($klanten as $klant) : ?>
                     <tr>

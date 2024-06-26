@@ -48,7 +48,9 @@ if (!empty($searchTerm)) {
                     <th class="cell">Artikel</th>
                     <th class="cell">Datum</th>
                     <th class="cell">Aantal</th>
-                    <th class="cell" colspan="3">Status</th>
+                    <th class="cell">Status</th>
+                    <th class="cell"></th>
+                    <th class="cell"></th>
                 </tr>
                 <?php foreach ($verkooporders as $order) : ?>
                     <tr>

@@ -50,7 +50,9 @@ if (!empty($searchTerm)) {
                     <th class="cell">Huidige voorraad</th>
                     <th class="cell">Minimum voorraad</th>
                     <th class="cell">Maximum voorraad</th>
-                    <th class="cell" colspan="3">Magazijn locatie</th>
+                    <th class="cell">Magazijn locatie</th>
+                    <th class="cell"></th>
+                    <th class="cell"></th>
                 </tr>
                 <?php foreach ($artikelen as $artikel) : ?>
                     <tr>
