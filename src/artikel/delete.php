@@ -5,6 +5,8 @@ require '../../vendor/autoload.php';
 use BasProject\classes\Artikel;
 use BasProject\classes\Connection;
 
+session_start();
+
 $connection = new Connection();
 $artikelInstance = new Artikel($connection);
 

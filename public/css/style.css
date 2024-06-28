@@ -9,6 +9,16 @@ body {
     font-size: 16px;
 }
 
+.image-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 129px;
+}
+
+.image-container img {
+    width: 1300px;
+}
+
 nav {
     background-color: #e42626;
     padding: 10px 0 10px;
@@ -143,4 +153,5 @@ table {
     padding: 10px;
     font-size: 16px;
     margin-left: 100px;
+    cursor: pointer;
 }

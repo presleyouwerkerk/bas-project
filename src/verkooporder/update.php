@@ -5,6 +5,8 @@ require '../../vendor/autoload.php';
 use BasProject\classes\Verkooporder;
 use BasProject\classes\Connection;
 
+session_start();
+
 $connection = new Connection();
 $verkooporder = new Verkooporder($connection);
 
@@ -45,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 
 <body>
-    <?php include '../../public/nav.html'; ?>
+    <?php include '../../public/nav.php'; ?>
 
     <div class="main-content">
         <h1 class="heading">Verkooporder bijwerken</h1>

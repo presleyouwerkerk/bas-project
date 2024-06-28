@@ -5,6 +5,13 @@ require '../../vendor/autoload.php';
 use BasProject\classes\Artikel;
 use BasProject\classes\Connection;
 
+session_start();
+
+if (!isset($_SESSION['roleId']) || ($_SESSION['roleId'] != 2 && $_SESSION['roleId'] != 4)) {
+    header("Location: ../login.php");
+    exit();
+}
+
 $connection = new Connection();
 $artikelInstance = new Artikel($connection);
 
@@ -28,7 +35,7 @@ if (!empty($searchTerm)) {
 </head>
 
 <body>
-    <?php include '../../public/nav.html'; ?>
+    <?php include '../../public/nav.php'; ?>
 
     <div class="main-content">
         <h1 class="heading">Artikelen</h1>
@@ -42,18 +49,18 @@ if (!empty($searchTerm)) {
                     </form>
                 </th>
             </tr>
+            <tr>
+                <th class="cell">Artikel</th>
+                <th class="cell">Inkoopprijs</th>
+                <th class="cell">Verkoopprijs</th>
+                <th class="cell">Huidige voorraad</th>
+                <th class="cell">Minimum voorraad</th>
+                <th class="cell">Maximum voorraad</th>
+                <th class="cell">Magazijn locatie</th>
+                <th class="cell"></th>
+                <th class="cell"></th>
+            </tr>
             <?php if (!empty($artikelen)) : ?>
-                <tr>
-                    <th class="cell">Artikel</th>
-                    <th class="cell">Inkoopprijs</th>
-                    <th class="cell">Verkoopprijs</th>
-                    <th class="cell">Huidige voorraad</th>
-                    <th class="cell">Minimum voorraad</th>
-                    <th class="cell">Maximum voorraad</th>
-                    <th class="cell">Magazijn locatie</th>
-                    <th class="cell"></th>
-                    <th class="cell"></th>
-                </tr>
                 <?php foreach ($artikelen as $artikel) : ?>
                     <tr>
                         <td class="cell"><?php echo $artikel['artOmschrijving']; ?></td>
@@ -79,12 +86,12 @@ if (!empty($searchTerm)) {
                 <?php endforeach; ?>
             <?php else : ?>
                 <tr>
-                    <td class="cell">Geen artikelen gevonden</td>
+                    <td class="cell" colspan="9">Geen artikelen gevonden</td>
                 </tr>
             <?php endif; ?>
         </table>
 
-        <a href="insert.php" class="link">Nieuw artikel</a>
+        <a href="create.php" class="link">Nieuw artikel</a>
     </div>
 </body>
 

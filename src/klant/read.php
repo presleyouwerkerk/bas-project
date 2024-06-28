@@ -5,6 +5,13 @@ require '../../vendor/autoload.php';
 use BasProject\classes\Klant;
 use BasProject\classes\Connection;
 
+session_start();
+
+if (!isset($_SESSION['roleId']) || $_SESSION['roleId'] != 3) {
+    header("Location: ../login.php");
+    exit();
+}
+
 $connection = new Connection();
 $klantInstance = new Klant($connection);
 
@@ -28,7 +35,7 @@ if (!empty($searchTerm)) {
 </head>
 
 <body>
-    <?php include '../../public/nav.html'; ?>
+    <?php include '../../public/nav.php'; ?>
 
     <div class="main-content">
         <h1 class="heading">Klanten</h1>
@@ -42,16 +49,16 @@ if (!empty($searchTerm)) {
                     </form>
                 </th>
             </tr>
+            <tr>
+                <th class="cell">Klant</th>
+                <th class="cell">Email</th>
+                <th class="cell">Adres</th>
+                <th class="cell">Postcode</th>
+                <th class="cell">Woonplaats</th>
+                <th class="cell"></th>
+                <th class="cell"></th>
+            </tr>
             <?php if (!empty($klanten)) : ?>
-                <tr>
-                    <th class="cell">Klant</th>
-                    <th class="cell">Email</th>
-                    <th class="cell">Adres</th>
-                    <th class="cell">Postcode</th>
-                    <th class="cell">Woonplaats</th>
-                    <th class="cell"></th>
-                    <th class="cell"></th>
-                </tr>
                 <?php foreach ($klanten as $klant) : ?>
                     <tr>
                         <td class="cell"><?php echo $klant['klantNaam']; ?></td>
@@ -75,12 +82,12 @@ if (!empty($searchTerm)) {
                 <?php endforeach; ?>
             <?php else : ?>
                 <tr>
-                    <td class="cell">Geen klant gevonden</td>
+                    <td class="cell" colspan="7">Geen klant gevonden</td>
                 </tr>
             <?php endif; ?>
         </table>
 
-        <a class="link" href="insert.php">Nieuwe klant</a>
+        <a class="link" href="create.php">Nieuwe klant</a>
     </div>
 </body>
 

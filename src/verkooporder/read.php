@@ -5,6 +5,13 @@ require '../../vendor/autoload.php';
 use BasProject\classes\Verkooporder;
 use BasProject\classes\Connection;
 
+session_start();
+
+if (!isset($_SESSION['roleId']) || $_SESSION['roleId'] != 1 && $_SESSION['roleId'] != 3) {
+    header("Location: ../login.php");
+    exit();
+}
+
 $connection = new Connection();
 $verkooporder = new Verkooporder($connection);
 
@@ -28,7 +35,7 @@ if (!empty($searchTerm)) {
 </head>
 
 <body>
-    <?php include '../../public/nav.html'; ?>
+    <?php include '../../public/nav.php'; ?>
 
     <div class="main-content">
         <h1 class="heading">Verkooporders</h1>
@@ -42,16 +49,16 @@ if (!empty($searchTerm)) {
                     </form>
                 </th>
             </tr>
+            <tr>
+                <th class="cell">Klant</th>
+                <th class="cell">Artikel</th>
+                <th class="cell">Datum</th>
+                <th class="cell">Aantal</th>
+                <th class="cell">Status</th>
+                <th class="cell"></th>
+                <th class="cell"></th>
+            </tr>
             <?php if (!empty($verkooporders)) : ?>
-                <tr>
-                    <th class="cell">Klant</th>
-                    <th class="cell">Artikel</th>
-                    <th class="cell">Datum</th>
-                    <th class="cell">Aantal</th>
-                    <th class="cell">Status</th>
-                    <th class="cell"></th>
-                    <th class="cell"></th>
-                </tr>
                 <?php foreach ($verkooporders as $order) : ?>
                     <tr>
                         <td class="cell"><?php echo $order['klantNaam']; ?></td>
@@ -75,12 +82,12 @@ if (!empty($searchTerm)) {
                 <?php endforeach; ?>
             <?php else : ?>
                 <tr>
-                    <td class="cell">Geen verkooporders gevonden</td>
+                    <td class="cell" colspan="7">Geen verkooporders gevonden</td>
                 </tr>
             <?php endif; ?>
         </table>
 
-        <a href="insert.php" class="link">Nieuwe verkooporder</a>
+        <a href="create.php" class="link">Nieuwe verkooporder</a>
     </div>
 </body>
 

@@ -1,5 +1,4 @@
 <?php
-// connection.php
 
 namespace BasProject\classes;
 

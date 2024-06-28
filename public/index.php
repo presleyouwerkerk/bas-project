@@ -1,3 +1,5 @@
+<?php session_start(); ?>
+
 <!DOCTYPE html>
 <html lang="nl">
 
@@ -9,5 +11,9 @@
 </head>
 
 <body>
-    <?php include 'nav.html'; ?>
+    <?php include 'nav.php'; ?>
+
+    <div class="image-container">
+        <img src="images/boodschappen.png" alt="Bas logo">
+    </div>
 </body>

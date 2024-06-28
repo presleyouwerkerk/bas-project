@@ -5,6 +5,8 @@ require '../../vendor/autoload.php';
 use BasProject\classes\Klant;
 use BasProject\classes\Connection;
 
+session_start();
+
 $connection = new Connection();
 $klantInstance = new Klant($connection);
 

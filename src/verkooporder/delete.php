@@ -5,6 +5,8 @@ require '../../vendor/autoload.php';
 use BasProject\classes\Verkooporder;
 use BasProject\classes\Connection;
 
+session_start();
+
 $connection = new Connection();
 $verkooporder = new Verkooporder($connection);
 

@@ -6,10 +6,10 @@ use BasProject\classes\Artikel;
 use BasProject\classes\Verkooporder;
 use BasProject\classes\Connection;
 
+#[\PHPUnit\Framework\Attributes\CoversClass(Connection::class)]
 #[\PHPUnit\Framework\Attributes\CoversClass(Klant::class)]
 #[\PHPUnit\Framework\Attributes\CoversClass(Artikel::class)]
 #[\PHPUnit\Framework\Attributes\CoversClass(Verkooporder::class)]
-#[\PHPUnit\Framework\Attributes\CoversClass(Connection::class)]
 
 class AcceptanceTest extends TestCase
 {
