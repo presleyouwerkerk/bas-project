@@ -1,5 +1,5 @@
 {
-    "name": "presley/bas_project",
+    "name": "presley/bas-project",
     "autoload": {
         "psr-4": {
             "BasProject\\": "src/"

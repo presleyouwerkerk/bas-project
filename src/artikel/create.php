@@ -7,24 +7,32 @@ use BasProject\classes\Connection;
 
 session_start();
 
+if (!isset($_SESSION['roleId']) || ($_SESSION['roleId'] != 2 && $_SESSION['roleId'] != 4)) {
+    header("Location: /bas-project/src/login/login.php");
+    exit();
+}
+
 $errors = [];
 
+$connection = new Connection();
+$artikel = new Artikel($connection);
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $connection = new Connection();
-    $artikel = new Artikel($connection);
 
-    $artikel->artOmschrijving = $_POST['artOmschrijving'];
-    $artikel->artInkoop = $_POST['artInkoop'];
-    $artikel->artVerkoop = $_POST['artVerkoop'];
-    $artikel->artVoorraad = $_POST['artVoorraad'];
-    $artikel->artMinVoorraad = $_POST['artMinVoorraad'];
-    $artikel->artMaxVoorraad = $_POST['artMaxVoorraad'];
-    $artikel->artLocatie = $_POST['artLocatie'];
+    $artikelData = [
+        'artOmschrijving' => $_POST['artOmschrijving'],
+        'artInkoop' => $_POST['artInkoop'],
+        'artVerkoop' => $_POST['artVerkoop'],
+        'artVoorraad' => $_POST['artVoorraad'],
+        'artMinVoorraad' => $_POST['artMinVoorraad'],
+        'artMaxVoorraad' => $_POST['artMaxVoorraad'],
+        'artLocatie' => $_POST['artLocatie']
+    ];
 
-    $errors = $artikel->validateArtikel();
+    $errors = $artikel->validateArtikel($artikelData);
 
     if (empty($errors)) {
-        if ($artikel->insertArtikel()) {
+        if ($artikel->insertArtikel($artikelData)) {
             header("Location: read.php");
             exit();
         } else {
@@ -54,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <?php echo '<p class="error">' . $error; ?>
         <?php endforeach; ?>
 
-        <form method="POST" action="<?php echo $_SERVER["PHP_SELF"]; ?>">
+        <form method="POST" action="create.php">
             <div class="form-group">
                 <label for="artOmschrijving">Artikel:</label>
                 <input id="artOmschrijving" class="field" type="text" name="artOmschrijving" placeholder="Artikel">

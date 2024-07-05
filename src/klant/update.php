@@ -7,30 +7,38 @@ use BasProject\classes\Connection;
 
 session_start();
 
-$connection = new Connection();
-$klantInstance = new Klant($connection);
+if (!isset($_SESSION['roleId']) || $_SESSION['roleId'] != 3) {
+    header("Location: /bas-project/src/login/login.php");
+    exit();
+}
 
 $errors = [];
 
-if (isset($_GET['klantId'])) {
-    $klantId = $_GET['klantId'];
-    $klant = $klantInstance->getKlantById($klantId);
-}
+$connection = new Connection();
+$klantInstance = new Klant($connection);
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $klantId = $_POST['klantId'];
-    $klantInstance->klantNaam = $_POST['klantNaam'];
-    $klantInstance->klantEmail = $_POST['klantEmail'];
-    $klantInstance->klantAdres = $_POST['klantAdres'];
-    $klantInstance->klantPostcode = $_POST['klantPostcode'];
-    $klantInstance->klantWoonplaats = $_POST['klantWoonplaats'];
 
-    if ($klantInstance->updateKlant($klantId)) {
+    $klantData = [
+        'klantNaam' => $_POST['klantNaam'],
+        'klantEmail' => $_POST['klantEmail'],
+        'klantAdres' => $_POST['klantAdres'],
+        'klantPostcode' => $_POST['klantPostcode'],
+        'klantWoonplaats' => $_POST['klantWoonplaats']
+    ];
+
+    if ($klantInstance->updateKlant($klantId, $klantData)) {
         header("Location: read.php");
         exit();
     } else {
         $errors[] = "Er is een fout opgetreden";
     }
+}
+
+if (isset($_GET['klantId'])) {
+    $klantId = $_GET['klantId'];
+    $klant = $klantInstance->getKlantById($klantId);
 }
 ?>
 
@@ -54,7 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <?php echo '<p class="error">' . $error; ?>
         <?php endforeach; ?>
 
-        <form method="POST" action="<?php echo $_SERVER["PHP_SELF"]; ?>">
+        <form method="POST" action="update.php">
             <input type="hidden" name="klantId" value="<?php echo $klantId; ?>">
 
             <div class="form-group">

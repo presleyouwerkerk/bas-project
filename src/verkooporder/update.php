@@ -7,32 +7,41 @@ use BasProject\classes\Connection;
 
 session_start();
 
-$connection = new Connection();
-$verkooporder = new Verkooporder($connection);
+if (!isset($_SESSION['roleId']) || ($_SESSION['roleId'] != 1 && $_SESSION['roleId'] != 3)) {
+    header("Location: /bas-project/src/login/login.php");
+    exit();
+}
 
 $errors = [];
 
-if (isset($_GET['verkOrdId'])) {
-    $verkOrdId = $_GET['verkOrdId'];
-    $order = $verkooporder->getVerkooporderById($verkOrdId);
-    $klanten = $verkooporder->getAllKlanten();
-    $artikelen = $verkooporder->getAllArtikelen();
-}
+$connection = new Connection();
+$verkooporder = new Verkooporder($connection);
+
+$klanten = $verkooporder->getAllKlanten();
+$artikelen = $verkooporder->getAllArtikelen();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $verkOrdId = $_POST['verkOrdId'];
-    $verkooporder->klantId = $_POST['klantId'];
-    $verkooporder->artId = $_POST['artId'];
-    $verkooporder->verkOrdDatum = $_POST['verkOrdDatum'];
-    $verkooporder->verkOrdBestAantal = $_POST['verkOrdBestAantal'];
-    $verkooporder->verkOrdStatus = $_POST['verkOrdStatus'];
 
-    if ($verkooporder->updateVerkooporder($verkOrdId)) {
+    $verkooporderData = [
+        'klantId' => $_POST['klantId'],
+        'artId' => $_POST['artId'],
+        'verkOrdDatum' => $_POST['verkOrdDatum'],
+        'verkOrdBestAantal' => $_POST['verkOrdBestAantal'],
+        'verkOrdStatus' => $_POST['verkOrdStatus']
+    ];
+
+    if ($verkooporder->updateVerkooporder($verkOrdId, $verkooporderData)) {
         header("Location: read.php");
         exit();
     } else {
         $errors[] = "Er is een fout opgetreden";
     }
+}
+
+if (isset($_GET['verkOrdId'])) {
+    $verkOrdId = $_GET['verkOrdId'];
+    $order = $verkooporder->getVerkooporderById($verkOrdId);
 }
 ?>
 
@@ -56,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <?php echo '<p class="error">' . $error; ?>
         <?php endforeach; ?>
 
-        <form method="post" action="<?php echo $_SERVER["PHP_SELF"]; ?>">
+        <form method="post" action="update.php">
             <input type="hidden" name="verkOrdId" value="<?php echo $verkOrdId; ?>">
 
             <div class="form-group">

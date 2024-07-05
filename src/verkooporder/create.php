@@ -7,26 +7,31 @@ use BasProject\classes\Connection;
 
 session_start();
 
+if (!isset($_SESSION['roleId']) || ($_SESSION['roleId'] != 1 && $_SESSION['roleId'] != 3)) {
+    header("Location: /bas-project/src/login/login.php");
+    exit();
+}
+
+$errors = [];
+
 $connection = new Connection();
 $verkooporder = new Verkooporder($connection);
 
 $artikelen = $verkooporder->getAllArtikelen();
 $klanten = $verkooporder->getAllKlanten();
 
-$errors = [];
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $klantId = isset($_POST['klantId']) ? $_POST['klantId'] : null;
-    $verkooporder->klantId = $klantId;
-    $artId = isset($_POST['artId']) ? $_POST['artId'] : null;
-    $verkooporder->artId = $artId;
-    $verkooporder->verkOrdBestAantal = $_POST['verkOrdBestAantal'];
-    $verkooporder->verkOrdDatum = $_POST['verkOrdDatum'];
+    $verkooporderData = [
+        'klantId' => isset($_POST['klantId']) ? $_POST['klantId'] : null,
+        'artId' => isset($_POST['artId']) ? $_POST['artId'] : null,
+        'verkOrdBestAantal' => $_POST['verkOrdBestAantal'],
+        'verkOrdDatum' => $_POST['verkOrdDatum']
+    ];
 
-    $errors = $verkooporder->validateVerkooporder();
+    $errors = $verkooporder->validateVerkooporder($verkooporderData);
 
     if (empty($errors)) {
-        if ($verkooporder->insertVerkooporder()) {
+        if ($verkooporder->insertVerkooporder($verkooporderData)) {
             header("Location: read.php");
             exit;
         } else {
@@ -56,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <?php echo '<p class="error">' . $error; ?>
         <?php endforeach; ?>
 
-        <form method="POST" action="<?php echo $_SERVER["PHP_SELF"]; ?>">
+        <form method="POST" action="create.php">
             <div class="form-group">
                 <label for="klantId">Klant:</label>
                 <select id="klantId" class="field" name="klantId">

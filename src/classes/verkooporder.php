@@ -5,18 +5,13 @@ namespace BasProject\classes;
 class Verkooporder
 {
     private $connection;
-    public $klantId;
-    public $artId;
-    public $verkOrdDatum;
-    public $verkOrdBestAantal;
-    public $verkOrdStatus;
 
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
-    public function insertVerkooporder(): bool
+    public function insertVerkooporder(array $verkooporderData): bool
     {
         try {
             $pdo = $this->connection->getPdo();
@@ -25,26 +20,28 @@ class Verkooporder
                       VALUES (:klantId, :artId, :verkOrdDatum, :verkOrdBestAantal)";
 
             $stmt = $pdo->prepare($query);
-            $stmt->bindParam(':klantId', $this->klantId);
-            $stmt->bindParam(':artId', $this->artId);
-            $stmt->bindParam(':verkOrdDatum', $this->verkOrdDatum);
-            $stmt->bindParam(':verkOrdBestAantal', $this->verkOrdBestAantal);
+
+            $stmt->bindParam(':klantId', $verkooporderData['klantId']);
+            $stmt->bindParam(':artId', $verkooporderData['artId']);
+            $stmt->bindParam(':verkOrdDatum', $verkooporderData['verkOrdDatum']);
+            $stmt->bindParam(':verkOrdBestAantal', $verkooporderData['verkOrdBestAantal']);
+
             $stmt->execute();
 
             return true;
         } catch (\PDOException $e) {
-            echo "Error: " . $e->getMessage();
+            echo "Error inserting verkooporder: " . $e->getMessage();
             return false;
         }
     }
 
-    public function validateVerkooporder(): array
+    public function validateVerkooporder(array $verkooporderData): array
     {
         $errors = [];
 
         if (
-            empty($this->klantId) || empty($this->artId) || empty($this->verkOrdDatum) ||
-            empty($this->verkOrdBestAantal || empty($this->verkOrdStatus))
+            empty($verkooporderData['klantId']) || empty($verkooporderData['artId']) || 
+            empty($verkooporderData['verkOrdDatum']) || empty($verkooporderData['verkOrdBestAantal'])
         ) {
             $errors[] = "Fields cannot be empty";
         }
@@ -67,11 +64,12 @@ class Verkooporder
                       JOIN artikel ON verkooporder.artId = artikel.artId";
 
             $stmt = $pdo->prepare($query);
+
             $stmt->execute();
 
             return $stmt->fetchAll(\PDO::FETCH_ASSOC);
         } catch (\PDOException $e) {
-            echo "Error: " . $e->getMessage();
+            error_log("Error inserting verkooporder: " . $e->getMessage());
             return [];
         }
     }
@@ -84,11 +82,12 @@ class Verkooporder
             $query = "SELECT artId, artOmschrijving FROM artikel";
 
             $stmt = $pdo->prepare($query);
+
             $stmt->execute();
 
             return $stmt->fetchAll(\PDO::FETCH_ASSOC);
         } catch (\PDOException $e) {
-            echo "Error: " . $e->getMessage();
+            error_log("Error getting all artikelen: " . $e->getMessage());
             return [];
         }
     }
@@ -101,11 +100,12 @@ class Verkooporder
             $query = "SELECT klantId, klantNaam FROM klant";
             
             $stmt = $pdo->prepare($query);
+
             $stmt->execute();
 
             return $stmt->fetchAll(\PDO::FETCH_ASSOC);
         } catch (\PDOException $e) {
-            echo "Error: " . $e->getMessage();
+            error_log("Error getting all klanten: " . $e->getMessage());
             return [];
         }
     }
@@ -129,6 +129,7 @@ class Verkooporder
             $stmt = $pdo->prepare($query);
 
             $stmt->bindValue(':query', "%$searchTerm%");
+
             $stmt->execute();
 
             return $stmt->fetchAll(\PDO::FETCH_ASSOC);
@@ -138,14 +139,17 @@ class Verkooporder
         }
     }
 
-    public function deleteVerkooporder(int $id): bool
+    public function deleteVerkooporder(int $verkOrdId): bool
     {
         try {
             $pdo = $this->connection->getPdo();
 
             $query = "DELETE FROM verkooporder WHERE verkOrdId = :verkOrdId";
+
             $stmt = $pdo->prepare($query);
-            $stmt->bindValue(':verkOrdId', $id);
+
+            $stmt->bindValue(':verkOrdId', $verkOrdId);
+
             $stmt->execute();
 
             return true;
@@ -155,7 +159,7 @@ class Verkooporder
         }
     }
 
-    public function updateVerkooporder(int $id): bool
+    public function updateVerkooporder(int $verkOrdId, array $verkooporderData): bool
     {
         try {
             $pdo = $this->connection->getPdo();
@@ -170,12 +174,12 @@ class Verkooporder
 
             $stmt = $pdo->prepare($query);
 
-            $stmt->bindValue(':klantId', $this->klantId);
-            $stmt->bindValue(':artId', $this->artId);
-            $stmt->bindValue(':verkOrdDatum', $this->verkOrdDatum);
-            $stmt->bindValue(':verkOrdBestAantal', $this->verkOrdBestAantal);
-            $stmt->bindValue(':verkOrdStatus', $this->verkOrdStatus);
-            $stmt->bindValue(':verkOrdId', $id);
+            $stmt->bindParam(':klantId', $verkooporderData['klantId']);
+            $stmt->bindParam(':artId', $verkooporderData['artId']);
+            $stmt->bindParam(':verkOrdDatum', $verkooporderData['verkOrdDatum']);
+            $stmt->bindParam(':verkOrdBestAantal', $verkooporderData['verkOrdBestAantal']);
+            $stmt->bindValue(':verkOrdStatus', $verkooporderData['verkOrdStatus']);
+            $stmt->bindValue(':verkOrdId', $verkOrdId);
 
             $stmt->execute();
 
@@ -186,7 +190,7 @@ class Verkooporder
         }
     }
 
-    public function getVerkooporderById(int $id): array
+    public function getVerkooporderById(int $verkOrdId): array
     {
         try {
             $pdo = $this->connection->getPdo();
@@ -200,7 +204,9 @@ class Verkooporder
                       WHERE verkooporder.verkOrdId = :verkOrdId";
 
             $stmt = $pdo->prepare($query);
-            $stmt->bindValue(':verkOrdId', $id);
+
+            $stmt->bindValue(':verkOrdId', $verkOrdId);
+
             $stmt->execute();
 
             return $stmt->fetch(\PDO::FETCH_ASSOC);

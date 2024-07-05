@@ -7,6 +7,11 @@ use BasProject\classes\Connection;
 
 session_start();
 
+if (!isset($_SESSION['roleId']) || ($_SESSION['roleId'] != 1 && $_SESSION['roleId'] != 3)) {
+    header("Location: /bas-project/src/login/login.php");
+    exit();
+}
+
 $connection = new Connection();
 $verkooporder = new Verkooporder($connection);
 

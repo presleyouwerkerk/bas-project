@@ -7,8 +7,8 @@ use BasProject\classes\Connection;
 
 session_start();
 
-if (!isset($_SESSION['roleId']) || $_SESSION['roleId'] != 1 && $_SESSION['roleId'] != 3) {
-    header("Location: ../login.php");
+if (!isset($_SESSION['roleId']) || ($_SESSION['roleId'] != 1 && $_SESSION['roleId'] != 3)) {
+    header("Location: /bas-project/src/login/login.php");
     exit();
 }
 
@@ -43,7 +43,7 @@ if (!empty($searchTerm)) {
         <table class="table">
             <tr>
                 <th class="cell" colspan="7">
-                    <form class="search-form" method="GET" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+                    <form class="search-form" method="GET" action="read.php">
                         <input class="search-field" type="text" name="search" placeholder="Zoek">
                         <input class="search-button" type="submit" value="">
                     </form>

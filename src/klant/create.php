@@ -7,22 +7,29 @@ use BasProject\classes\Connection;
 
 session_start();
 
+if (!isset($_SESSION['roleId']) || $_SESSION['roleId'] != 3) {
+	header("Location: /bas-project/src/login/login.php");
+	exit();
+}
+
 $errors = [];
 
+$connection = new Connection();
+$klant = new Klant($connection);
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-	$connection = new Connection();
-	$klant = new Klant($connection);
+	$klantData = [
+		'klantNaam' => $_POST['klantNaam'],
+		'klantEmail' => $_POST['klantEmail'],
+		'klantAdres' => $_POST['klantAdres'],
+		'klantPostcode' => $_POST['klantPostcode'],
+		'klantWoonplaats' => $_POST['klantWoonplaats']
+	];
 
-	$klant->klantNaam = $_POST['klantNaam'];
-	$klant->klantEmail = $_POST['klantEmail'];
-	$klant->klantAdres = $_POST['klantAdres'];
-	$klant->klantPostcode = $_POST['klantPostcode'];
-	$klant->klantWoonplaats = $_POST['klantWoonplaats'];
-
-	$errors = $klant->validateKlant();
+	$errors = $klant->validateKlant($klantData);
 
 	if (empty($errors)) {
-		if ($klant->insertKlant()) {
+		if ($klant->insertKlant($klantData)) {
 			header("Location: read.php");
 			exit();
 		} else {
@@ -52,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			<?php echo '<p class="error">' . $error; ?>
 		<?php endforeach; ?>
 
-		<form method="POST" action="<?php echo $_SERVER["PHP_SELF"]; ?>">
+		<form method="POST" action="create.php">
 			<div class="form-group">
 				<label for="klantNaam">Klant:</label>
 				<input id="klantNaam" class="field" type="text" name="klantNaam" placeholder="Klant">

@@ -7,19 +7,26 @@ use BasProject\classes\User;
 
 session_start();
 
+if (isset($_SESSION['roleId'])) {
+    header("Location: /bas-project/public/index.php");
+    exit();
+}
+
 $errors = [];
 
+$connection = new Connection();
+$user = new User($connection);
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
+    $userData = [
+        'username' => $_POST['username'],
+        'password' => $_POST['password']
+    ];
 
-    $connection = new Connection();
-    $user = new User($connection, $username, $password);
-
-    $errors = $user->validateUser();
+    $errors = $user->validateUser($userData);
 
     if (empty($errors)) {
-        if ($user->loginUser()) {
+        if ($user->loginUser($userData)) {
             switch ($_SESSION['roleId']) {
                 case 1:
                     header("Location: ../verkooporder/read.php");
@@ -34,7 +41,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     header("Location: ../artikel/read.php");
                     break;
             }
-        } 
+            exit();
+        } else {
+            $errors[] = "Invalid credentials";
+        }
     }
 }
 ?>

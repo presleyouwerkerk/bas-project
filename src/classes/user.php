@@ -5,17 +5,13 @@ namespace BasProject\classes;
 class User
 {
     private $connection;
-    private $rolNaam;
-    private $rolWachtwoord;
 
-    public function __construct(Connection $connection, $rolNaam, $rolWachtwoord)
+    public function __construct(Connection $connection)
     {
         $this->connection = $connection;
-        $this->rolNaam = $rolNaam;
-        $this->rolWachtwoord = $rolWachtwoord;
     }
 
-    public function loginUser(): bool
+    public function loginUser(array $userData): bool
     {
         try {
             $pdo = $this->connection->getPdo();
@@ -23,17 +19,19 @@ class User
             $query = "SELECT rolId, rolWachtwoord FROM gebruikers WHERE rolNaam = :rolNaam";
 
             $stmt = $pdo->prepare($query);
-            $stmt->bindValue(':rolNaam', $this->rolNaam);
+
+            $stmt->bindValue(':rolNaam', $userData['username']);
+
             $stmt->execute();
 
             if ($stmt->rowCount() > 0) {
                 $user = $stmt->fetch(\PDO::FETCH_ASSOC);
 
-                if ($this->rolWachtwoord === $user['rolWachtwoord']) {
+                if ($userData['password'] === $user['rolWachtwoord']) {
                     $_SESSION['roleId'] = $user['rolId'];
                     return true;
-                }   
-            }    
+                }
+            }
             return false;
         } catch (\PDOException $e) {
             error_log("Error logging in: " . $e->getMessage());
@@ -41,21 +39,20 @@ class User
         }
     }
 
-    public function validateUser(): array
+    public function validateUser(array $userData): array
     {
         $errors = [];
-    
-        if (empty($this->rolNaam) || empty($this->rolWachtwoord)) {
+
+        if (empty($userData['username']) || empty($userData['password'])) {
             $errors[] = "Fields cannot be empty";
         }
         return $errors;
     }
-    
 
     public function logout()
     {
         session_unset();
-            
+
         session_destroy();
     }
 }

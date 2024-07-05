@@ -5,48 +5,44 @@ namespace BasProject\classes;
 class Klant
 {
 	private $connection;
-	public $klantNaam;
-	public $klantEmail;
-	public $klantAdres;
-	public $klantPostcode;
-	public $klantWoonplaats;
 
 	public function __construct(Connection $connection)
 	{
 		$this->connection = $connection;
 	}
 
-	public function insertKlant(): bool
+	public function insertKlant(array $klantData): bool
 	{
 		try {
 			$pdo = $this->connection->getPdo();
-
+	
 			$query = "INSERT INTO klant (klantNaam, klantEmail, klantAdres, klantPostcode, klantWoonplaats) 
-			          VALUES (:klantnaam, :klantemail, :klantadres, :klantpostcode, :klantwoonplaats)";
-
+					  VALUES (:klantNaam, :klantEmail, :klantAdres, :klantPostcode, :klantWoonplaats)";
+	
 			$stmt = $pdo->prepare($query);
-
-			$stmt->BindValue(':klantnaam', $this->klantNaam);
-			$stmt->BindValue(':klantemail', $this->klantEmail);
-			$stmt->BindValue(':klantadres', $this->klantAdres);
-			$stmt->BindValue(':klantpostcode', $this->klantPostcode);
-			$stmt->BindValue(':klantwoonplaats', $this->klantWoonplaats);
+	
+			$stmt->bindValue(':klantNaam', $klantData['klantNaam']);
+			$stmt->bindValue(':klantEmail', $klantData['klantEmail']);
+			$stmt->bindValue(':klantAdres', $klantData['klantAdres']);
+			$stmt->bindValue(':klantPostcode', $klantData['klantPostcode']);
+			$stmt->bindValue(':klantWoonplaats', $klantData['klantWoonplaats']);
+			
 			$stmt->execute();
-
+	
 			return true;
 		} catch (\PDOException $e) {
-			error_log("Error inserting" . $e->getMessage());
+			error_log("Error inserting klant: " . $e->getMessage());
 			return false;
 		}
-	}
+	}	
 
-	public function validateKlant(): array
+	public function validateKlant(array $klantData): array
 	{
 		$errors = [];
 
 		if (
-			empty($this->klantNaam) || empty($this->klantEmail) || empty($this->klantAdres) ||
-			empty($this->klantPostcode) || empty($this->klantWoonplaats)
+			empty($klantData['klantNaam']) || empty($klantData['klantEmail']) || empty($klantData['klantAdres']) ||
+			empty($klantData['klantPostcode']) || empty($klantData['klantWoonplaats'])
 		) {
 			$errors[] = "Fields cannot be empty";
 		}
@@ -64,7 +60,7 @@ class Klant
 
 			return $stmt->fetchAll(\PDO::FETCH_ASSOC);
 		} catch (\PDOException $e) {
-			echo "Error: " . $e->getMessage();
+			error_log("Error selecting klant: " . $e->getMessage());
 			return [];
 		}
 	}
@@ -75,7 +71,7 @@ class Klant
 			$pdo = $this->connection->getPdo();
 
 			$stmt = $pdo->prepare("SELECT * FROM klant WHERE klantNaam LIKE :query");
-			
+
 			$stmt->bindValue(':query', "%$searchTerm%");
 			$stmt->execute();
 
@@ -86,7 +82,7 @@ class Klant
 		}
 	}
 
-	public function deleteKlant(int $id): bool
+	public function deleteKlant(int $klantId): bool
 	{
 		try {
 			$pdo = $this->connection->getPdo();
@@ -94,7 +90,7 @@ class Klant
 			$query = "DELETE FROM klant WHERE klantId = :klantId";
 
 			$stmt = $pdo->prepare($query);
-			$stmt->bindValue(':klantId', $id);
+			$stmt->bindValue(':klantId', $klantId);
 			$stmt->execute();
 
 			return true;
@@ -104,38 +100,38 @@ class Klant
 		}
 	}
 
-	public function updateKlant(int $id): bool
+	public function updateKlant(int $klantId, array $klantData): bool
 	{
 		try {
 			$pdo = $this->connection->getPdo();
-
+	
 			$query = "UPDATE klant 
-                      SET klantNaam = :klantnaam, 
-					      klantEmail = :klantemail, 
-						  klantAdres = :klantadres, 
-						  klantPostcode = :klantpostcode, 
-						  klantWoonplaats = :klantwoonplaats 
-                      WHERE klantId = :klantid";
-
+					  SET klantNaam = :klantNaam, 
+						  klantEmail = :klantEmail, 
+						  klantAdres = :klantAdres, 
+						  klantPostcode = :klantPostcode, 
+						  klantWoonplaats = :klantWoonplaats 
+					  WHERE klantId = :klantId";
+	
 			$stmt = $pdo->prepare($query);
-
-			$stmt->bindValue(':klantnaam', $this->klantNaam);
-			$stmt->bindValue(':klantemail', $this->klantEmail);
-			$stmt->bindValue(':klantadres', $this->klantAdres);
-			$stmt->bindValue(':klantpostcode', $this->klantPostcode);
-			$stmt->bindValue(':klantwoonplaats', $this->klantWoonplaats);
-			$stmt->bindValue(':klantid', $id);
-
+	
+			$stmt->bindValue(':klantNaam', $klantData['klantNaam']);
+			$stmt->bindValue(':klantEmail', $klantData['klantEmail']);
+			$stmt->bindValue(':klantAdres', $klantData['klantAdres']);
+			$stmt->bindValue(':klantPostcode', $klantData['klantPostcode']);
+			$stmt->bindValue(':klantWoonplaats', $klantData['klantWoonplaats']);
+			$stmt->bindValue(':klantId', $klantId);
+	
 			$stmt->execute();
-
+	
 			return true;
 		} catch (\PDOException $e) {
 			error_log("Error updating klant: " . $e->getMessage());
 			return false;
 		}
-	}
+	}	
 
-	public function getKlantById(int $id): array
+	public function getKlantById(int $klantId): array
 	{
 		try {
 			$pdo = $this->connection->getPdo();
@@ -143,7 +139,7 @@ class Klant
 			$query = "SELECT * FROM klant WHERE klantId = :klantId";
 
 			$stmt = $pdo->prepare($query);
-			$stmt->bindValue(':klantId', $id);
+			$stmt->bindValue(':klantId', $klantId);
 			$stmt->execute();
 
 			$klant = $stmt->fetch(\PDO::FETCH_ASSOC);

@@ -7,32 +7,40 @@ use BasProject\classes\Connection;
 
 session_start();
 
-$connection = new Connection();
-$artikelInstance = new Artikel($connection);
+if (!isset($_SESSION['roleId']) || ($_SESSION['roleId'] != 2 && $_SESSION['roleId'] != 4)) {
+    header("Location: /bas-project/src/login/login.php");
+    exit();
+}
 
 $errors = [];
 
-if (isset($_GET['artId'])) {
-    $artId = $_GET['artId'];
-    $artikel = $artikelInstance->getArtikelById($artId);
-}
+$connection = new Connection();
+$artikelInstance = new Artikel($connection);
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $artId = $_POST['artId'];
-    $artikelInstance->artOmschrijving = $_POST['artOmschrijving'];
-    $artikelInstance->artInkoop = $_POST['artInkoop'];
-    $artikelInstance->artVerkoop = $_POST['artVerkoop'];
-    $artikelInstance->artVoorraad = $_POST['artVoorraad'];
-    $artikelInstance->artMinVoorraad = $_POST['artMinVoorraad'];
-    $artikelInstance->artMaxVoorraad = $_POST['artMaxVoorraad'];
-    $artikelInstance->artLocatie = $_POST['artLocatie'];
 
-    if ($artikelInstance->updateArtikel($artId)) {
+    $artikelData = [
+        'artOmschrijving' => $_POST['artOmschrijving'],
+        'artInkoop' => $_POST['artInkoop'],
+        'artVerkoop' => $_POST['artVerkoop'],
+        'artVoorraad' => $_POST['artVoorraad'],
+        'artMinVoorraad' => $_POST['artMinVoorraad'],
+        'artMaxVoorraad' => $_POST['artMaxVoorraad'],
+        'artLocatie' => $_POST['artLocatie']
+    ];
+
+    if ($artikelInstance->updateArtikel($artId, $artikelData)) {
         header("Location: read.php");
         exit();
     } else {
         $errors[] = "Er is een fout opgetreden";
     }
+}
+
+if (isset($_GET['artId'])) {
+    $artId = $_GET['artId'];
+    $artikel = $artikelInstance->getArtikelById($artId);
 }
 ?>
 
@@ -56,7 +64,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <?php echo '<p class="error">' . $error; ?>
         <?php endforeach; ?>
 
-        <form method="POST" action="<?php echo $_SERVER["PHP_SELF"]; ?>">
+        <form method="POST" action="update.php">
             <input type="hidden" name="artId" value="<?php echo $artId; ?>">
 
             <div class="form-group">
