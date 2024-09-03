@@ -69,7 +69,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <p class="error"><?php echo $error; ?></p>
         <?php endforeach; ?>
 
-        <form method="POST" action="<?php echo $_SERVER["PHP_SELF"]; ?>">
+        <form method="POST" action="login.php">
             <div class="form-group">
                 <label for="username">Username:</label>
                 <input type="text" id="username" name="username" class="field" placeholder="Username">
