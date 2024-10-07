@@ -11,7 +11,7 @@ if (!isset($_SESSION['roleId'])) {
     exit();
 }
 
-$connection = $connection = new Connection();
+$connection = new Connection();
 $user = new User($connection, $rolNaam, $rolWachtwoord);
 
 $user->logout();

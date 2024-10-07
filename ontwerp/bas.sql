@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 16, 2024 at 04:37 PM
+-- Generation Time: Oct 08, 2024 at 01:49 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -48,6 +48,28 @@ INSERT INTO `artikel` (`artId`, `artOmschrijving`, `artInkoop`, `artVerkoop`, `a
 (3, 'Perzik', 0.60, 0.90, 150, 10, 150, 6),
 (4, 'Ananas', 1.00, 1.50, 120, 25, 120, 7),
 (5, 'Kiwi', 0.75, 1.25, 170, 30, 170, 8);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `gebruikers`
+--
+
+CREATE TABLE `gebruikers` (
+  `rolId` int(11) NOT NULL,
+  `rolNaam` varchar(50) NOT NULL,
+  `rolWachtwoord` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `gebruikers`
+--
+
+INSERT INTO `gebruikers` (`rolId`, `rolNaam`, `rolWachtwoord`) VALUES
+(1, 'verkoper', 'verkoper'),
+(2, 'magazijnmeester', 'magazijnmeester'),
+(3, 'bezorger', 'bezorger'),
+(4, 'magazijnmedewerkster', 'magazijnmedewerkster');
 
 -- --------------------------------------------------------
 
@@ -148,11 +170,11 @@ CREATE TABLE `verkooporder` (
 --
 
 INSERT INTO `verkooporder` (`verkOrdId`, `klantId`, `artId`, `verkOrdDatum`, `verkOrdBestAantal`, `verkOrdStatus`) VALUES
-(1, 1, 1, '2024-05-24', 10, 1),
-(2, 2, 2, '2024-05-25', 15, 1),
-(3, 3, 3, '2024-05-26', 20, 1),
-(4, 4, 4, '2024-05-27', 25, 1),
-(5, 5, 5, '2024-05-28', 30, 1);
+(1, 1, 1, '2024-05-24', 10, 'Geleverd'),
+(2, 2, 2, '2024-05-25', 15, 'Onderweg'),
+(3, 3, 3, '2024-05-26', 20, 'Geleverd'),
+(4, 4, 4, '2024-05-27', 25, 'Geleverd'),
+(5, 5, 5, '2024-05-28', 30, 'Geannuleerd');
 
 --
 -- Indexes for dumped tables
@@ -163,6 +185,12 @@ INSERT INTO `verkooporder` (`verkOrdId`, `klantId`, `artId`, `verkOrdDatum`, `ve
 --
 ALTER TABLE `artikel`
   ADD PRIMARY KEY (`artId`);
+
+--
+-- Indexes for table `gebruikers`
+--
+ALTER TABLE `gebruikers`
+  ADD PRIMARY KEY (`rolId`);
 
 --
 -- Indexes for table `inkooporder`
@@ -200,7 +228,13 @@ ALTER TABLE `verkooporder`
 -- AUTO_INCREMENT for table `artikel`
 --
 ALTER TABLE `artikel`
-  MODIFY `artId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `artId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+
+--
+-- AUTO_INCREMENT for table `gebruikers`
+--
+ALTER TABLE `gebruikers`
+  MODIFY `rolId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `inkooporder`
